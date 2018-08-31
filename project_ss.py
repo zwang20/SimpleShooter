@@ -1,3 +1,4 @@
+# init
 import pygame
 import os
 from random import randint
