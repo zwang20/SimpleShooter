@@ -1,4 +1,4 @@
-# Edward
+# Edward is an idiot
 import pygame
 import os
 from random import randint
