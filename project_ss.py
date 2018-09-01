@@ -72,9 +72,6 @@ class Enemy:
         pass
 
 
-def ss_clear():
-    ss_display.fill(white)
-
 def ss_bad_ai(q,w,e,r):
     pass
 
