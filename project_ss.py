@@ -114,6 +114,8 @@ class Bullet:
 
     def move(self):
         self.x -= Bullet.speed if self.harmful else -Bullet.speed
+        if self.x > 700 or self.x < 0:
+            del self
 
     def display(self):
         if self.harmful:
