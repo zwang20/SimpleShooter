@@ -60,6 +60,13 @@ class Bullet:
     def display(self):
         sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
 
+    def __del__(self):
+        if harmful:
+            Bullet.bad.remove(self)
+        else:
+            Bullet.good.remove(self)
+
+
 class Enemy:
     width = 20
     height = 40
