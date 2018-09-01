@@ -117,7 +117,13 @@ class Bullet:
 
     def display(self):
         if self.harmful:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+            sge_rect(  # TRIGGERD
+            x=self.x,
+            y=self.y,
+            height=Bullet.length,
+            width=Bullet.width,
+            colour=red
+            )
         else:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
@@ -260,7 +266,7 @@ def ss():
                 bullet.display()
                 bullet.move()
 
-                # TODO
+            # TODO
 
             # Bullets Move
             # ss_bullets_temp = []
