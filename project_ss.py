@@ -97,7 +97,7 @@ def ss_bad_ai(q,w,e,r):
     pass
 
 def ss_print(string='Test', x=0, y=0, colour=black):
-    display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
+    game_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
 
 
 def ss_rect(x, y, width, height, colour=black):
@@ -113,7 +113,7 @@ def ss_rect(x, y, width, height, colour=black):
 
 
 def ss_clear():
-    display.fill(white)
+    game_display.fill(white)
 
 
 def ss_init():
@@ -212,7 +212,7 @@ def ss():
             if ss_cooldown%5 == 0:
                 if ss_fire == True:
                     if ss_cooldown < 90:
-                        sge_print()
+                        sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
                         ss_print('Pew', ss_pos[0]+20, ss_pos[1])
                         ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20

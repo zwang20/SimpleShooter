@@ -1,14 +1,14 @@
 import pygame
 
-if __name__ == "__main__":
-    print('Simple Game Engine by Michael')
+#if __name__ == "__main__":
+print('Simple Game Engine by Michael')
 
 
 def sge_print(display, string='Test', x=0, y=0, colour=(0, 0, 0)):
     display.blit(pygame.font.SysFont("arial",
         25).render(string, True, colour), (x, y))
 
-# what is the point of having this?!
+# what is the point of having this?! I'm lazy, also why not
 def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
     if x <= 0:
         x = 1
