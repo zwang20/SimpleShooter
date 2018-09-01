@@ -29,7 +29,7 @@ pygame.display.set_icon(
 pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 )
 
-class Bullt:
+class Bullet:
     width = 1
     length = 20
     speed = 10
@@ -65,7 +65,7 @@ class Enemy:
     def move(player_x, player_y, difficulty='normal'):
         pass
 
-    
+
 def ss_bad_ai(q,w,e,r):
     pass
 
