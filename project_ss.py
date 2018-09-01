@@ -101,6 +101,7 @@ def ss_player(x, y):
     sge_rect(game_display, x, y, 20, 40)
     sge_rect(game_display, x+20, y+10, 5, 5)
 
+
 def ss_pause():
     ss_pause = True
     while ss_pause:
@@ -119,6 +120,7 @@ def ss_pause():
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 pygame.quit()
+
 
 def ss():
     while True:
