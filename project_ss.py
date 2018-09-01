@@ -4,7 +4,7 @@
 import pygame
 import os
 from random import randint
-from random import *
+from sge import *
 
 # initiation
 pygame.init()
@@ -20,7 +20,7 @@ blue = (0, 0, 255)
 display_height = 800
 display_width = 800
 
-ss_display = pygame.display.set_mode([display_width, display_height])
+game_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
 
@@ -45,7 +45,7 @@ class Bullet:
         self.x = Bullet.speed if dir='r' else -Bullet.speed
 
     def display(self):
-        ss_rect(self.x, self.y, Bullet.length, Bullet.width)
+        sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
 
 class Enemy:
     width = 20
@@ -61,8 +61,8 @@ class Enemy:
         self.y = randint(0, display_height - Enemy.height)
 
     def display(self):
-        ss_rect(self.x, self.y, Enemy.width, Enemy.height)
-        ss_rect(self.x - 5, self.y + 10, 5, 5)
+        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height)
+        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5)
 
     def move(player_x, player_y, difficulty='normal'):
         pass
@@ -88,8 +88,8 @@ def ss_clear():
 
 
 def ss_init():
-    ss_clear()
-    ss_print('This is a simple shooter')
+    sge_clear(game_display)
+    sge_print(game_display, 'This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
     while ss_initial:
@@ -98,29 +98,29 @@ def ss_init():
                 if event.key == pygame.K_q:
                     pygame.display.quit()
                     pygame.quit()
-                    #quit()
+                    quit()
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
         pygame.display.update()
 
 
-def ss_bullet(x, y, colour = blue):
-    ss_rect(x, y, 10, 2, colour)
+def ss_bullet(x, y, colour=blue):
+    sge_rect(game_display, x, y, 10, 2, colour)
 
 
 def ss_player(x, y):
-    ss_rect(x, y, 20, 40)
-    ss_rect(x+20, y+10, 5, 5)
+    sge_rect(game_display, x, y, 20, 40)
+    sge_rect(game_display, x+20, y+10, 5, 5)
 
 def ss_pause():
     ss_pause = True
     while ss_pause:
-        ss_clear()
-        ss_print('Paused')
-        ss_print('To unpause press x', 1, 30)
+        sge_clear(game_display)
+        sge_print(game_display, 'Paused')
+        sge_print(game_display, 'To unpause press x', 1, 30)
         pygame.display.update()
-        ss_keys = pygame.key.get_pressed()
-        if ss_keys[pygame.K_x]:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_x]:
             ss_pause = False
         for event in pygame.event.get():  # Input
             if event.type == pygame.KEYDOWN:
@@ -133,6 +133,7 @@ def ss_pause():
 
 def ss():
     while True:
+
         ss_init()
         ss_run = True
         ss_pos = [0, 0]
@@ -143,47 +144,50 @@ def ss():
         ss_bad_cooldown = 0
         ss_score = 0
         ss_bad_move_cooldown = 0
+
         while ss_run:
-            ss_clear()
+            sge_clear(game_display)
             clock.tick(0)
-            ss_rect(0, 600, 800, 200, black)  # Ground
+            sge_rect(game_display, 0, 600, 800, 200, black)  # Ground
             ss_fire = False
+
             for event in pygame.event.get():  # Input
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
-                        pygame.display.quit()
-                        pygame.quit()
-                        #quit()
                 if event.type == pygame.QUIT:
                     pygame.display.quit()
                     pygame.quit()
-                    #quit()
-            ss_keys = pygame.key.get_pressed()
-            if ss_keys[pygame.K_w]:  # Up
+                    quit()
+            keys = pygame.key.get_pressed()
+
+            if keys[pygame.K_q]:  # Quit
+                pygame.display.quit()
+                pygame.quit()
+                quit()
+            if keys[pygame.K_w]:  # Up
                 if ss_pos[1] > 0:
                     ss_pos[1] -= 4
-            if ss_keys[pygame.K_d]:  # Right
+            if keys[pygame.K_d]:  # Right
                 if ss_pos[0] < 780:
                     ss_pos[0] += 3
-            if ss_keys[pygame.K_a]:  # Left
+            if keys[pygame.K_a]:  # Left
                 if ss_pos[0] > 0:
                     ss_pos[0] -= 3
-            if ss_keys[pygame.K_s]:  # Down
+            if keys[pygame.K_s]:  # Down
                 if ss_pos[1] < 560:
                     ss_pos[1] += 2
-            if ss_keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE]:  # Fire
                 ss_fire = True
-            if ss_keys[pygame.K_p]:
+            if keys[pygame.K_p]:  # Pause
                 ss_pause()
-                            #quit()
+
             # Gravity
             if ss_pos[1] < 560:
                 ss_pos[1] += 1
+
             # Fire
             if ss_cooldown%5 == 0:
                 if ss_fire == True:
                     if ss_cooldown < 90:
-                        ss_print('Pew', ss_pos[0]+20, ss_pos[1])
+                        sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
                         ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
             if ss_cooldown > 0:
@@ -210,8 +214,8 @@ def ss():
             del ss_bullets_temp
 
             # Bullet cooldowm
-            ss_rect(700, 790, 100, 10, white)
-            ss_rect(700, 790, ss_cooldown, 10, red)
+            sge_rect(game_display, 700, 790, 100, 10, white)
+            sge_rect(game_display, 700, 790, ss_cooldown, 10, red)
 
             # Enemy
             if not Enemy.family:
@@ -258,7 +262,7 @@ def ss():
             if ss_bad_move_cooldown > 0:
                 ss_bad_move_cooldown -= 1
 
-            ss_print(str(ss_score))
+            sge_print(game_display, ss_score)
             ss_player(ss_pos[0], ss_pos[1])
             pygame.display.update()
 

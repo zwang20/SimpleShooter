@@ -1,14 +1,12 @@
 import pygame
 
-if __name__ == "__main__":
-    print('Simple Game Engine by Michael')
+print('Simple Game Engine by Michael')
 
 
 def sge_print(display, string='Test', x=0, y=0, colour=(0, 0, 0)):
     display.blit(pygame.font.SysFont("arial",
-        25).render(string, True, colour), (x, y))
+        25).render(str(string), True, colour), (x, y))
 
-# what is the point of having this?!
 def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
     if x <= 0:
         x = 1
@@ -21,8 +19,8 @@ def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
     pygame.draw.rect(display, colour, (x, y, width, height))
 
 
-def sge_clear(display):
-    display.fill((255, 255, 255))
+def sge_clear(display, colour=(255, 255, 255)):
+    display.fill(colour)
 
 
 def sge_line(
