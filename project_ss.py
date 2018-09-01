@@ -145,8 +145,8 @@ def ss_pause():
         sge_print(game_display, 'Paused')
         sge_print(game_display, 'To unpause press x', 1, 30)
         pygame.display.update()
-        ss_keys = pygame.key.get_pressed()
-        if ss_keys[pygame.K_x]:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_x]:
             ss_pause = False
         for event in pygame.event.get():  # Input
             if event.type == pygame.KEYDOWN:
@@ -184,22 +184,22 @@ def ss():
                     pygame.display.quit()
                     pygame.quit()
                     #quit()
-            ss_keys = pygame.key.get_pressed()
-            if ss_keys[pygame.K_w]:  # Up
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:  # Up
                 if ss_pos[1] > 0:
                     ss_pos[1] -= 4
-            if ss_keys[pygame.K_d]:  # Right
+            if keys[pygame.K_d]:  # Right
                 if ss_pos[0] < 780:
                     ss_pos[0] += 3
-            if ss_keys[pygame.K_a]:  # Left
+            if keys[pygame.K_a]:  # Left
                 if ss_pos[0] > 0:
                     ss_pos[0] -= 3
-            if ss_keys[pygame.K_s]:  # Down
+            if keys[pygame.K_s]:  # Down
                 if ss_pos[1] < 560:
                     ss_pos[1] += 2
-            if ss_keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE]:
                 ss_fire = True
-            if ss_keys[pygame.K_p]:
+            if keys[pygame.K_p]:
                 ss_pause()
                             #quit()
             # Gravity
