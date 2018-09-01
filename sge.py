@@ -45,3 +45,6 @@ def sge_load():
         x = open('settings.dat', 'w')
         x.close()
         return None
+
+def sge_write():
+    pass
