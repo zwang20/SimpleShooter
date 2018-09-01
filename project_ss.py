@@ -124,7 +124,7 @@ def ss_init():
                 if event.key == pygame.K_q:
                     pygame.display.quit()
                     pygame.quit()
-                    #quit()
+                    quit()
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
         pygame.display.update()
