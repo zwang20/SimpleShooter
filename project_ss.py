@@ -175,16 +175,15 @@ def ss():
             ss_rect(0, 600, 800, 200, black)  # Ground
             ss_fire = False
             for event in pygame.event.get():  # Input
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
-                        pygame.display.quit()
-                        pygame.quit()
-                        #quit()
                 if event.type == pygame.QUIT:
                     pygame.display.quit()
                     pygame.quit()
-                    #quit()
+                    quit()
             keys = pygame.key.get_pressed()
+            if keys[pygame.K_q]:
+                pygame.display.quit()
+                pygame.quit()
+                quit()
             if keys[pygame.K_w]:  # Up
                 if ss_pos[1] > 0:
                     ss_pos[1] -= 4
@@ -201,7 +200,6 @@ def ss():
                 ss_fire = True
             if keys[pygame.K_p]:
                 ss_pause()
-                            #quit()
             # Gravity
             if ss_pos[1] < 560:
                 ss_pos[1] += 1
