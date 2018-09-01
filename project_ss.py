@@ -4,7 +4,6 @@
 import pygame
 import os
 from random import randint
-# from random import *
 from sge import *
 
 # initiation
