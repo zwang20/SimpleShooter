@@ -33,16 +33,20 @@ class Bullet:
     width = 1
     length = 20
     speed = 10
-    family = []
+    good = []
+    bad = []
 
-    def __init__(self, x, y, dir='l'):
+    def __init__(self, x, y, harmful=True):
         self.x = x
         self.y = y
-        self.dir = dir
-        Bullet.family.append(self)
+        self.harmful = harmful
+        if harmful:
+            Bullet.bad.append(self)
+        else:
+            Bullet.good.append(self)
 
     def mvoe(self):
-        self.x = Bullet.speed if dir='r' else -Bullet.speed
+        self.x = Bullet.speed if self.harmful else -Bullet.speed
 
     def display(self):
         sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
