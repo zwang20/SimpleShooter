@@ -20,8 +20,8 @@ def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
     pygame.draw.rect(display, colour, (x, y, width, height))
 
 
-def sge_clear(display):
-    display.fill((255, 255, 255))
+def sge_clear(display, colour=(255, 255, 255)):
+    display.fill(colour)
 
 
 def sge_line(
