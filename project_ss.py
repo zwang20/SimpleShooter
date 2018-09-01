@@ -33,14 +33,16 @@ class Bullet:
     width = 1
     length = 20
     speed = 10
+    family = []
 
     def __init__(self, x, y, dir='l'):
         self.x = x
         self.y = y
         self.dir = dir
+        Bullet.family.append(self)
 
     def mvoe(self):
-        self.x = 10
+        self.x = Bullet.speed if dir='r' else -Bullet.speed
 
     def display(self):
         sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
@@ -65,6 +67,24 @@ class Enemy:
     def move(player_x, player_y, difficulty='normal'):
         pass
 
+def ss_print(string='Test', x=0, y=0, colour=black):
+    ss_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
+
+
+def ss_rect(x, y, width, height, colour=black):
+    if x <= 0:
+        x = 1
+    if y <= 0:
+        y = 1
+    if width <= 0:
+        width = 1
+    if height <= 0:
+        height = 1
+    pygame.draw.rect(ss_display, colour, (x, y, width, height))
+
+
+def ss_clear():
+    ss_display.fill(white)
 
 def ss_bad_ai(q,w,e,r):
     pass
