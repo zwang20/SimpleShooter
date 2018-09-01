@@ -120,7 +120,7 @@ class Bullet:
         # self.x = Bullet.speed if self.harmful else -Bullet.speed
 
     def display(self):
-        sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
+        sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
 class Enemy:
     width = 20
@@ -250,7 +250,7 @@ def ss():
                 if ss_fire == True:
                     if ss_cooldown < 90:
                         sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
-                        Bullet(ss_pos[0]+20, ss_pos[1]+10, False)
+                        ss_bullets.append(Bullet(ss_pos[0]+20, ss_pos[1]+10, False))
                         # ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
             if ss_cooldown > 0:
@@ -259,71 +259,72 @@ def ss():
                 # TODO
 
             # Bullets Move
-            ss_bullets_temp = []
-            ss_temp = True
-            for i in ss_bullets:
-                ss_bullet(i[0],i[1])
-                if i[0] in range(500, 520):
-                    if i[1] in range(500, 540):
-                        ss_score +=1
-                        ss_temp = False
-                if i[0] < 700 and ss_temp:
-                        ss_bullets_temp.append([i[0]+10,i[1]])
-                ss_temp = True
-                # Bullets Despawn
-            del ss_temp
+            # ss_bullets_temp = []
+            # ss_temp = True
+            # for i in ss_bullets:
+            #     ss_bullet(i[0],i[1])
+            #     if i[0] in range(500, 520):
+            #         if i[1] in range(500, 540):
+            #             ss_score +=1
+            #             ss_temp = False
+            #     if i[0] < 700 and ss_temp:
+            #             ss_bullets_temp.append([i[0]+10,i[1]])
+            #     ss_temp = True
 
-            ss_bullets = ss_bullets_temp
-            del ss_bullets_temp
+                # Bullets Despawn
+            # del ss_temp
+
+            # ss_bullets = ss_bullets_temp
+            # del ss_bullets_temp
 
             # Bullet cooldowm
             sge_rect(game_display, 700, 790, 100, 10, white)
             sge_rect(game_display, 700, 790, ss_cooldown, 10, red)
 
             # Enemy
-            if not Enemy.family:
-                enemy = Enemy()
-            enemy.display()
+            # if not Enemy.family:
+            #     enemy = Enemy()
+            # enemy.display()
 
             # Bad
-            ss_bullets_temp = []
-            ss_temp = True
-            for i in ss_bad_bullets:
-                ss_bullet(i[0], i[1], red)
-                if i[0] in range(ss_pos[0], ss_pos[0]+20):
-                    if i[1] in range(ss_pos[1], ss_pos[1]+40):
-                        ss_score -= 10
-                        ss_temp = False
-                if i[0] > 0 and ss_temp:
-                    ss_bullets_temp.append([i[0]-10,i[1]])
-                ss_temp = True
-            ss_bad_bullets = ss_bullets_temp
-            del ss_temp
-            del ss_bullets_temp
+            # ss_bullets_temp = []
+            # ss_temp = True
+            # for i in ss_bad_bullets:
+            #     ss_bullet(i[0], i[1], red)
+            #     if i[0] in range(ss_pos[0], ss_pos[0]+20):
+            #         if i[1] in range(ss_pos[1], ss_pos[1]+40):
+            #             ss_score -= 10
+            #             ss_temp = False
+            #     if i[0] > 0 and ss_temp:
+            #         ss_bullets_temp.append([i[0]-10,i[1]])
+            #     ss_temp = True
+            # ss_bad_bullets = ss_bullets_temp
+            # del ss_temp
+            # del ss_bullets_temp
 
             # Enemy Moves
-            if ss_bad_move_cooldown == 0:
-                ss_temp_direction = ss_bad_ai(0, 0, ss_bad_pos[0], ss_bad_pos[1])
-                ss_bad_move_cooldown +=30
-            if ss_score >= 100:
-                if ss_temp_direction == 'n':
-                    ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]-1]
-                elif ss_temp_direction == 'e':
-                    ss_bad_pos = [ss_bad_pos[0]+1, ss_bad_pos[1]]
-                elif ss_temp_direction == 's':
-                    ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]+1]
-                elif ss_temp_direction == 'w':
-                    ss_bad_pos = [ss_bad_pos[0]-1, ss_bad_pos[1]]
+            # if ss_bad_move_cooldown == 0:
+            #     ss_temp_direction = ss_bad_ai(0, 0, ss_bad_pos[0], ss_bad_pos[1])
+            #     ss_bad_move_cooldown +=30
+            # if ss_score >= 100:
+            #     if ss_temp_direction == 'n':
+            #         ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]-1]
+            #     elif ss_temp_direction == 'e':
+            #         ss_bad_pos = [ss_bad_pos[0]+1, ss_bad_pos[1]]
+            #     elif ss_temp_direction == 's':
+            #         ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]+1]
+            #     elif ss_temp_direction == 'w':
+            #         ss_bad_pos = [ss_bad_pos[0]-1, ss_bad_pos[1]]
 
-            if ss_bad_cooldown == 0:
-                ss_bad_bullets.append([randint(600,800),randint(0,600)])
-                ss_bad_cooldown += 10
-
-            if ss_bad_cooldown > 0:
-                ss_bad_cooldown -= 1
-
-            if ss_bad_move_cooldown > 0:
-                ss_bad_move_cooldown -= 1
+            # if ss_bad_cooldown == 0:
+            #     ss_bad_bullets.append([randint(600,800),randint(0,600)])
+            #     ss_bad_cooldown += 10
+            #
+            # if ss_bad_cooldown > 0:
+            #     ss_bad_cooldown -= 1
+            #
+            # if ss_bad_move_cooldown > 0:
+            #     ss_bad_move_cooldown -= 1
 
             sge_print(game_display, ss_score)
             ss_player(ss_pos[0], ss_pos[1])
