@@ -78,7 +78,7 @@ def ss_clear():
 
 
 def ss_init():
-    ss_clear()
+    sge_clear(ss_display)
     ss_print('This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
