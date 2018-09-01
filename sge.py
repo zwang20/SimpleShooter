@@ -1,13 +1,14 @@
 import pygame
+from data import *
 
 print('Simple Game Engine by Michael')
 
 
-def sge_print(display, string='Test', x=0, y=0, colour=(0, 0, 0)):
+def sge_print(display=game_display, string='Test', x=0, y=0, colour=(0, 0, 0)):
     display.blit(pygame.font.SysFont("arial",
         25).render(str(string), True, colour), (x, y))
 
-def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
+def sge_rect(display=game_display, x=0, y=0, width=10, height=10, colour=(0, 0, 0)):
     if x <= 0:
         x = 1
     if y <= 0:
@@ -19,12 +20,12 @@ def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
     pygame.draw.rect(display, colour, (x, y, width, height))
 
 
-def sge_clear(display, colour=(255, 255, 255)):
+def sge_clear(display=game_display, colour=(255, 255, 255)):
     display.fill(colour)
 
 
 def sge_line(
-display, colour=(0,0,0), point_1=(0, 0), point_2=(10, 10), width=(10)
+display=game_display, colour=(0,0,0), point_1=(0, 0), point_2=(10, 10), width=(10)
 ):
     pygame.draw.line(display, colour, point_1, point_2, width)
 

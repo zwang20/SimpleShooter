@@ -5,6 +5,7 @@
 import pygame
 import os
 from random import randint
+from data import *  # Edward this works don't change it 'cause i don't know why
 from sge import *
 
 # initiation
@@ -35,7 +36,6 @@ try:
 except:
     display_width = 800
 
-print([display_width, display_height])
 game_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
@@ -97,7 +97,7 @@ def ss_bad_ai(q,w,e,r):
 
 
 def ss_init():
-    sge_clear(game_display)
+    sge_clear()
     sge_print(game_display, 'This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
