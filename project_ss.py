@@ -4,7 +4,8 @@
 import pygame
 import os
 from random import randint
-from random import *
+# from random import *
+from sge import *
 
 # initiation
 pygame.init()
@@ -20,7 +21,7 @@ blue = (0, 0, 255)
 display_height = 800
 display_width = 800
 
-ss_display = pygame.display.set_mode([display_width, display_height])
+display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
 
@@ -63,7 +64,7 @@ class Enemy:
         ss_rect(self.x - 5, self.y + 10, 5, 5)
 
     def move(player_x, player_y, difficulty='normal'):
-
+        pass
         # ss_bad_ai_temp = randint(0,3)
         # if ss_bad_ai_temp == 0:
         #     if by > 30:
@@ -93,9 +94,11 @@ class Enemy:
         #     else:
         #         del ss_bad_ai_temp
         #         return 'e'
+def ss_bad_ai(q,w,e,r):
+    pass
 
 def ss_print(string='Test', x=0, y=0, colour=black):
-    ss_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
+    display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
 
 
 def ss_rect(x, y, width, height, colour=black):
@@ -107,15 +110,15 @@ def ss_rect(x, y, width, height, colour=black):
         width = 1
     if height <= 0:
         height = 1
-    pygame.draw.rect(ss_display, colour, (x, y, width, height))
+    pygame.draw.rect(display, colour, (x, y, width, height))
 
 
 def ss_clear():
-    ss_display.fill(white)
+    display.fill(white)
 
 
 def ss_init():
-    sge_clear(ss_display)
+    sge_clear(display)
     ss_print('This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
