@@ -96,9 +96,6 @@ class Enemy:
 def ss_bad_ai(q,w,e,r):
     pass
 
-def ss_print(string='Test', x=0, y=0, colour=black):
-    game_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
-
 
 def ss_rect(x, y, width, height, colour=black):
     if x <= 0:
@@ -118,7 +115,7 @@ def ss_clear():
 
 def ss_init():
     sge_clear(game_display)
-    ss_print('This is a simple shooter')
+    sge_print(game_display, 'This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
     while ss_initial:
@@ -145,8 +142,8 @@ def ss_pause():
     ss_pause = True
     while ss_pause:
         ss_clear()
-        ss_print('Paused')
-        ss_print('To unpause press x', 1, 30)
+        sge_print(game_display, 'Paused')
+        sge_print(game_display, 'To unpause press x', 1, 30)
         pygame.display.update()
         ss_keys = pygame.key.get_pressed()
         if ss_keys[pygame.K_x]:
@@ -287,7 +284,7 @@ def ss():
             if ss_bad_move_cooldown > 0:
                 ss_bad_move_cooldown -= 1
 
-            ss_print(str(ss_score))
+            sge_print(game_display, ss_score)
             ss_player(ss_pos[0], ss_pos[1])
             pygame.display.update()
 
