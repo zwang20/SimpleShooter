@@ -130,13 +130,13 @@ def ss_init():
         pygame.display.update()
 
 
-def ss_bullet(x, y, colour = blue):
-    ss_rect(x, y, 10, 2, colour)
+def ss_bullet(x, y, colour=blue):
+    sge_rect(game_display, x, y, 10, 2, colour)
 
 
 def ss_player(x, y):
-    ss_rect(x, y, 20, 40)
-    ss_rect(x+20, y+10, 5, 5)
+    sge_rect(game_display, x, y, 20, 40)
+    sge_rect(game_display, x+20, y+10, 5, 5)
 
 def ss_pause():
     ss_pause = True
@@ -174,7 +174,7 @@ def ss():
         while ss_run:
             ss_clear()
             clock.tick(0)
-            ss_rect(0, 600, 800, 200, black)  # Ground
+            sge_rect(game_display, 0, 600, 800, 200, black)  # Ground
             ss_fire = False
 
             for event in pygame.event.get():  # Input
@@ -183,7 +183,7 @@ def ss():
                     pygame.quit()
                     quit()
             keys = pygame.key.get_pressed()
-            
+
             if keys[pygame.K_q]:  # Quit
                 pygame.display.quit()
                 pygame.quit()
@@ -240,8 +240,8 @@ def ss():
             del ss_bullets_temp
 
             # Bullet cooldowm
-            ss_rect(700, 790, 100, 10, white)
-            ss_rect(700, 790, ss_cooldown, 10, red)
+            sge_rect(game_display, 700, 790, 100, 10, white)
+            sge_rect(game_display, 700, 790, ss_cooldown, 10, red)
 
             # Enemy
             if not Enemy.family:
