@@ -64,35 +64,8 @@ class Enemy:
 
     def move(player_x, player_y, difficulty='normal'):
         pass
-        # ss_bad_ai_temp = randint(0,3)
-        # if ss_bad_ai_temp == 0:
-        #     if by > 30:
-        #         del ss_bad_ai_temp
-        #         return 'n'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 's'
-        # elif ss_bad_ai_temp == 1:
-        #     if by < 600:
-        #         del ss_bad_ai_temp
-        #         return 'e'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'w'
-        # elif ss_bad_ai_temp == 2:
-        #     if by < 500:
-        #         del ss_bad_ai_temp
-        #         return 's'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'n'
-        # elif ss_bad_ai_temp == 3:
-        #     if by > 30:
-        #         del ss_bad_ai_temp
-        #         return 'w'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'e'
+
+    
 def ss_bad_ai(q,w,e,r):
     pass
 
