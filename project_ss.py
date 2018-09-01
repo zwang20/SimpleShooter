@@ -1,4 +1,6 @@
 # Edward is an idiot
+# This project is created by Michael Wang, a student from Knox Grammar School.
+
 import pygame
 import os
 from random import randint
