@@ -20,7 +20,7 @@ blue = (0, 0, 255)
 display_height = 800
 display_width = 800
 
-display = pygame.display.set_mode([display_width, display_height])
+game_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
 
@@ -109,7 +109,7 @@ def ss_rect(x, y, width, height, colour=black):
         width = 1
     if height <= 0:
         height = 1
-    pygame.draw.rect(display, colour, (x, y, width, height))
+    pygame.draw.rect(game_display, colour, (x, y, width, height))
 
 
 def ss_clear():
@@ -117,7 +117,7 @@ def ss_clear():
 
 
 def ss_init():
-    sge_clear(display)
+    sge_clear(game_display)
     ss_print('This is a simple shooter')
     # TODO: complete this description
     ss_initial = True
@@ -212,6 +212,7 @@ def ss():
             if ss_cooldown%5 == 0:
                 if ss_fire == True:
                     if ss_cooldown < 90:
+                        sge_print()
                         ss_print('Pew', ss_pos[0]+20, ss_pos[1])
                         ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
