@@ -71,9 +71,6 @@ class Enemy:
     def move(player_x, player_y, difficulty='normal'):
         pass
 
-def ss_print(string='Test', x=0, y=0, colour=black):
-    ss_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
-
 
 def ss_rect(x, y, width, height, colour=black):
     if x <= 0:
