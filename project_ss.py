@@ -29,18 +29,20 @@ pygame.display.set_icon(
 pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 )
 
-class Bullt:
+class Bullet:
     width = 1
     length = 20
     speed = 10
+    family = []
 
     def __init__(self, x, y, dir='l'):
         self.x = x
         self.y = y
         self.dir = dir
+        Bullet.family.append(self)
 
     def mvoe(self):
-        self.x = 10
+        self.x = Bullet.speed if dir='r' else -Bullet.speed
 
     def display(self):
         ss_rect(self.x, self.y, Bullet.length, Bullet.width)
@@ -63,36 +65,7 @@ class Enemy:
         ss_rect(self.x - 5, self.y + 10, 5, 5)
 
     def move(player_x, player_y, difficulty='normal'):
-
-        # ss_bad_ai_temp = randint(0,3)
-        # if ss_bad_ai_temp == 0:
-        #     if by > 30:
-        #         del ss_bad_ai_temp
-        #         return 'n'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 's'
-        # elif ss_bad_ai_temp == 1:
-        #     if by < 600:
-        #         del ss_bad_ai_temp
-        #         return 'e'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'w'
-        # elif ss_bad_ai_temp == 2:
-        #     if by < 500:
-        #         del ss_bad_ai_temp
-        #         return 's'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'n'
-        # elif ss_bad_ai_temp == 3:
-        #     if by > 30:
-        #         del ss_bad_ai_temp
-        #         return 'w'
-        #     else:
-        #         del ss_bad_ai_temp
-        #         return 'e'
+        pass
 
 def ss_print(string='Test', x=0, y=0, colour=black):
     ss_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
