@@ -43,7 +43,7 @@ class Bullt:
         self.x = 10
 
     def display(self):
-        ss_rect(self.x, self.y, Bullet.length, Bullet.width)
+        sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
 
 class Enemy:
     width = 20
@@ -59,8 +59,8 @@ class Enemy:
         self.y = randint(0, display_height - Enemy.height)
 
     def display(self):
-        ss_rect(self.x, self.y, Enemy.width, Enemy.height)
-        ss_rect(self.x - 5, self.y + 10, 5, 5)
+        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height)
+        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5)
 
     def move(player_x, player_y, difficulty='normal'):
         pass
@@ -95,18 +95,6 @@ class Enemy:
         #         return 'e'
 def ss_bad_ai(q,w,e,r):
     pass
-
-
-def ss_rect(x, y, width, height, colour=black):
-    if x <= 0:
-        x = 1
-    if y <= 0:
-        y = 1
-    if width <= 0:
-        width = 1
-    if height <= 0:
-        height = 1
-    pygame.draw.rect(game_display, colour, (x, y, width, height))
 
 
 def ss_clear():
