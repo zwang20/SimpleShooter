@@ -62,7 +62,11 @@ class Bullet:
             Bullet.good.append(self)
 
     def move(self):
-        self.x = Bullet.speed if self.harmful else -Bullet.speed
+        if self.harmful:
+            self.x = Bullet.speed
+        else:
+            self.x = -Bullet.speed
+        # self.x = Bullet.speed if self.harmful else -Bullet.speed
 
     def display(self):
         sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width)
