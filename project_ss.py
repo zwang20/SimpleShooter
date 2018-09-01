@@ -86,6 +86,9 @@ def ss_rect(x, y, width, height, colour=black):
 def ss_clear():
     ss_display.fill(white)
 
+def ss_bad_ai(q,w,e,r):
+    pass
+
 
 def ss_init():
     sge_clear(game_display)
