@@ -1,6 +1,5 @@
 try:
     x = open('settings.dat', 'r')
+    print(x.read())
 except FileNotFoundError:
-    pass
-
-x = open('settings.dat')
+    x = open('settings.dat', 'w')

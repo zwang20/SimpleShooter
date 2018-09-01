@@ -195,7 +195,8 @@ def ss():
                 if ss_fire == True:
                     if ss_cooldown < 90:
                         sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
-                        ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
+                        Bullet()
+                        # ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
             if ss_cooldown > 0:
                 ss_cooldown -= 1
