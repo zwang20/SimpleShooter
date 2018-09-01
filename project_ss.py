@@ -72,18 +72,6 @@ class Enemy:
         pass
 
 
-def ss_rect(x, y, width, height, colour=black):
-    if x <= 0:
-        x = 1
-    if y <= 0:
-        y = 1
-    if width <= 0:
-        width = 1
-    if height <= 0:
-        height = 1
-    pygame.draw.rect(ss_display, colour, (x, y, width, height))
-
-
 def ss_clear():
     ss_display.fill(white)
 
