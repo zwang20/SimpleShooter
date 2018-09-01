@@ -3,22 +3,54 @@
 
 # modules
 import pygame
-import os
-from random import randint
 from data import *  # Edward this works don't change it 'cause i don't know why
 from sge import *
-
-# initiation
+# Loading screen
 pygame.init()
+
+
+sge_clear()
+sge_print(string='Loading os')
+pygame.display.update()
+
+import os
+
+
+sge_clear()
+sge_print(string='Loading randint')
+pygame.display.update()
+
+from random import randint
+
+
+sge_clear()
+sge_print(string='Loading data')
+pygame.display.update()
+
 game_data = sge_load()
 
+
+sge_clear()
+sge_print(string='Loading clock')
+pygame.display.update()
+
 clock = pygame.time.Clock()
+
+
+sge_clear()
+sge_print(string='Loading colours')
+pygame.display.update()
 
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
+
+
+sge_clear()
+sge_print(string='Adjusting height')
+pygame.display.update()
 
 try:
     if int(game_data['display_height']) > 0:
@@ -28,6 +60,11 @@ try:
 except:
     display_height = 800
 
+
+sge_clear()
+sge_print(string='Adjusting width')
+pygame.display.update()
+
 try:
     if int(game_data['display_width']) > 0:
         display_width = int(game_data['display_width'])
@@ -36,14 +73,28 @@ try:
 except:
     display_width = 800
 
+sge_clear()
+sge_print(string='Adjusting size')
+pygame.display.update()
+
 game_display = pygame.display.set_mode([display_width, display_height])
+
+
+sge_clear()
+sge_print(string='Adjusting caption')
+pygame.display.update()
 
 pygame.display.set_caption('Simple Shooter')
 
-# adding Icon
+
+sge_clear()
+sge_print(string='Adding icon')
+pygame.display.update()
+
 pygame.display.set_icon(
 pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 )
+
 
 class Bullet:
     width = 1
@@ -158,7 +209,7 @@ def ss():
 
         while ss_run:
             sge_clear(game_display)
-            clock.tick(0)
+            clock.tick(60)
             sge_rect(game_display, 0, 600, 800, 200, black)  # Ground
             ss_fire = False
 
@@ -205,7 +256,7 @@ def ss():
             if ss_cooldown > 0:
                 ss_cooldown -= 1
 
-                #TODO
+                # TODO
 
             # Bullets Move
             ss_bullets_temp = []
