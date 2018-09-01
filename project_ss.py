@@ -115,7 +115,7 @@ class Bullet:
     def move(self):
         self.x -= Bullet.speed if self.harmful else -Bullet.speed
         if self.x > 700 or self.x < 0:
-            del self
+            self.despawn()
 
     def display(self):
         if self.harmful:
@@ -129,7 +129,7 @@ class Bullet:
         else:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
-    def __del__(self):
+    def despawn(self):
         if self.harmful:
             Bullet.bad.remove(self)
         else:
@@ -141,8 +141,17 @@ class Enemy:
     height = 40
     family = []
 
-    def __init__(self):
+    def __init__(self, difficulty='normal'):
         self.spawn()
+        if difficulty == "normal":
+            self.speed = 3
+        elif difficulty == "hard":
+            self.speed = 5
+        elif difficulty == "hell":
+            self.speed = 10
+        else:
+            self.speed = 0
+        self.dir = "up"
         Enemy.family.append(self)
 
     def spawn(self):
@@ -153,12 +162,12 @@ class Enemy:
         sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height)
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5)
 
-    def move(player_x, player_y, difficulty='normal'):
-        pass
-
-
-def ss_bad_ai(q,w,e,r):
-    pass
+    def move(self): # this now contains enemy ai
+        self.y += self.speed if self.dir == "down" else -self.speed
+        if self.y < self.speed:
+            self.dir = "down"
+        elif self.y > 580 - self.speed:
+            self.dir = "up"
 
 
 def ss_init():
@@ -220,6 +229,8 @@ def ss():
         ss_bad_cooldown = 0
         ss_score = 0
         ss_bad_move_cooldown = 0
+
+        Enemy()
 
         while ss_run:
             sge_clear(game_display)
@@ -299,6 +310,9 @@ def ss():
             # Bullet cooldowm
             sge_rect(game_display, 700, 790, 100, 10, white)
             sge_rect(game_display, 700, 790, ss_cooldown, 10, red)
+
+            for enemy in Enemy.family:
+                enemy.move()
 
             # Enemy
             # if not Enemy.family:
