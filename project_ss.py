@@ -272,7 +272,8 @@ def ss():
             for bullet in Bullet.good:
                 bullet.display()
                 bullet.move()
-                if bullet.x > 800:
+                if bullet.x > 700:
+                    # del bullet
                     bullet.__del__()
 
             # TODO
