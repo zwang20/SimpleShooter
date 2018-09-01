@@ -3,6 +3,7 @@
 
 # modules
 import pygame
+import time
 from data import *  # Edward this works don't change it 'cause i don't know why
 from sge import *
 # Loading screen
@@ -73,6 +74,8 @@ try:
 except:
     display_width = 800
 
+ground_height = 200 # try not to hard code
+
 sge_clear()
 sge_print(string='Adjusting size')
 pygame.display.update()
@@ -109,24 +112,18 @@ class Bullet:
         self.harmful = harmful
         if harmful:
             Bullet.bad.append(self)
+            temp = -50
         else:
             Bullet.good.append(self)
+            temp = 25
+        sge_print(game_display, 'Pew', x + temp, y)
 
     def move(self):
         self.x -= Bullet.speed if self.harmful else -Bullet.speed
-        if self.x > 700 or self.x < 0:
+        if self.x > 800 or self.x < 0:
             self.despawn()
 
     def display(self):
-        if self.harmful:
-            sge_rect(  # TRIGGERD
-            x=self.x,
-            y=self.y,
-            height=Bullet.length,
-            width=Bullet.width,
-            colour=red
-            )
-        else:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
     def despawn(self):
@@ -137,6 +134,8 @@ class Bullet:
 
 
 class Enemy:
+    offset = 10
+    limit = 4
     width = 20
     height = 40
     family = []
@@ -144,19 +143,25 @@ class Enemy:
     def __init__(self, difficulty='normal'):
         self.spawn()
         if difficulty == "normal":
-            self.speed = 3
+            self.speed = 1
+            self.fire_cooldown = 1
         elif difficulty == "hard":
-            self.speed = 5
+            self.speed = 3
+            self.fire_cooldown = 0.5
         elif difficulty == "hell":
-            self.speed = 10
+            self.speed = 5
+            self.fire_cooldown = 0.3
         else:
             self.speed = 0
+            self.fire_cooldown = 1
         self.dir = "up"
+        self.fire_timer = time.time()
+        self.spawn_protect = time.time()
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = display_width - Enemy.width - 10
-        self.y = randint(0, display_height - Enemy.height)
+        self.x = display_width - Enemy.width - Enemy.offset
+        self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
         sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height)
@@ -168,6 +173,28 @@ class Enemy:
             self.dir = "down"
         elif self.y > 580 - self.speed:
             self.dir = "up"
+
+    def fire(self):
+        if time.time() - self.fire_timer >= self.fire_cooldown:
+            self.fire_timer = time.time()
+            Bullet(self.x - 5, self.y + 7, True)
+
+    def get_hit(self): # checks if an enemy gets hit and respond accordingly
+        for bullet in Bullet.good:
+            if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
+                    if time.time() - self.spawn_protect > 3:
+                        self.despawn()
+                        bullet.despawn()
+                    else:
+                        sge_print(game_display, "spawn protection", self.x - Enemy.height, self.y)
+
+    def despawn(self):
+            Enemy.family.remove(self)
+
+    def smart_spawn():
+        if len(Enemy.family) <= Enemy.limit:
+            Enemy.offset += 30
+            Enemy("normal")
 
 
 def ss_init():
@@ -222,15 +249,8 @@ def ss():
         ss_init()
         ss_run = True
         ss_pos = [0, 0]
-        ss_bad_pos = [500, 500]
-        ss_bullets = []
-        ss_bad_bullets = []
         ss_cooldown = 0
-        ss_bad_cooldown = 0
         ss_score = 0
-        ss_bad_move_cooldown = 0
-
-        Enemy()
 
         while ss_run:
             sge_clear(game_display)
@@ -253,7 +273,7 @@ def ss():
                 if ss_pos[1] > 0:
                     ss_pos[1] -= 4
             if keys[pygame.K_d]:  # Right
-                if ss_pos[0] < 780:
+                if ss_pos[0] < 300:
                     ss_pos[0] += 3
             if keys[pygame.K_a]:  # Left
                 if ss_pos[0] > 0:
@@ -274,90 +294,26 @@ def ss():
             if ss_cooldown%5 == 0:
                 if ss_fire == True:
                     if ss_cooldown < 90:
-                        sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
                         Bullet(ss_pos[0]+20, ss_pos[1]+10, False)
-                        # ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
             if ss_cooldown > 0:
                 ss_cooldown -= 1
 
-            # display
-            for bullet in Bullet.good:
-                bullet.display()
-                bullet.move()
-
-            # TODO
-
-            # Bullets Move
-            # ss_bullets_temp = []
-            # ss_temp = True
-            # for i in ss_bullets:
-            #     ss_bullet(i[0],i[1])
-            #     if i[0] in range(500, 520):
-            #         if i[1] in range(500, 540):
-            #             ss_score +=1
-            #             ss_temp = False
-            #     if i[0] < 700 and ss_temp:
-            #             ss_bullets_temp.append([i[0]+10,i[1]])
-            #     ss_temp = True
-
-                # Bullets Despawn
-            # del ss_temp
-
-            # ss_bullets = ss_bullets_temp
-            # del ss_bullets_temp
-
-            # Bullet cooldowm
+            # DISPLAY
             sge_rect(game_display, 700, 790, 100, 10, white)
             sge_rect(game_display, 700, 790, ss_cooldown, 10, red)
 
             for enemy in Enemy.family:
                 enemy.move()
+                enemy.get_hit()
+                enemy.display()
+                enemy.fire()
 
-            # Enemy
-            # if not Enemy.family:
-            #     enemy = Enemy()
-            # enemy.display()
+            for bullet in Bullet.good + Bullet.bad:
+                bullet.display()
+                bullet.move()
 
-            # Bad
-            # ss_bullets_temp = []
-            # ss_temp = True
-            # for i in ss_bad_bullets:
-            #     ss_bullet(i[0], i[1], red)
-            #     if i[0] in range(ss_pos[0], ss_pos[0]+20):
-            #         if i[1] in range(ss_pos[1], ss_pos[1]+40):
-            #             ss_score -= 10
-            #             ss_temp = False
-            #     if i[0] > 0 and ss_temp:
-            #         ss_bullets_temp.append([i[0]-10,i[1]])
-            #     ss_temp = True
-            # ss_bad_bullets = ss_bullets_temp
-            # del ss_temp
-            # del ss_bullets_temp
-
-            # Enemy Moves
-            # if ss_bad_move_cooldown == 0:
-            #     ss_temp_direction = ss_bad_ai(0, 0, ss_bad_pos[0], ss_bad_pos[1])
-            #     ss_bad_move_cooldown +=30
-            # if ss_score >= 100:
-            #     if ss_temp_direction == 'n':
-            #         ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]-1]
-            #     elif ss_temp_direction == 'e':
-            #         ss_bad_pos = [ss_bad_pos[0]+1, ss_bad_pos[1]]
-            #     elif ss_temp_direction == 's':
-            #         ss_bad_pos = [ss_bad_pos[0], ss_bad_pos[1]+1]
-            #     elif ss_temp_direction == 'w':
-            #         ss_bad_pos = [ss_bad_pos[0]-1, ss_bad_pos[1]]
-
-            # if ss_bad_cooldown == 0:
-            #     ss_bad_bullets.append([randint(600,800),randint(0,600)])
-            #     ss_bad_cooldown += 10
-            #
-            # if ss_bad_cooldown > 0:
-            #     ss_bad_cooldown -= 1
-            #
-            # if ss_bad_move_cooldown > 0:
-            #     ss_bad_move_cooldown -= 1
+            Enemy.smart_spawn()
 
             sge_print(game_display, ss_score)
             ss_player(ss_pos[0], ss_pos[1])
