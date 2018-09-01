@@ -97,10 +97,6 @@ def ss_bad_ai(q,w,e,r):
     pass
 
 
-def ss_clear():
-    game_display.fill(white)
-
-
 def ss_init():
     sge_clear(game_display)
     sge_print(game_display, 'This is a simple shooter')
@@ -129,7 +125,7 @@ def ss_player(x, y):
 def ss_pause():
     ss_pause = True
     while ss_pause:
-        ss_clear()
+        sge_clear(game_display)
         sge_print(game_display, 'Paused')
         sge_print(game_display, 'To unpause press x', 1, 30)
         pygame.display.update()
@@ -160,7 +156,7 @@ def ss():
         ss_bad_move_cooldown = 0
 
         while ss_run:
-            ss_clear()
+            sge_clear(game_display)
             clock.tick(0)
             sge_rect(game_display, 0, 600, 800, 200, black)  # Ground
             ss_fire = False
