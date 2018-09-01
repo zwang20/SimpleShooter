@@ -27,3 +27,21 @@ def sge_line(
 display, colour=(0,0,0), point_1=(0, 0), point_2=(10, 10), width=(10)
 ):
     pygame.draw.line(display, colour, point_1, point_2, width)
+
+
+def sge_load():
+    try:
+        x = open('settings.dat', 'r')
+        y = x.read()
+        x.close()
+        z = y.split('\n')
+        e = []
+        for t in z:
+            if t:
+                e.append(t.split(' = '))
+        return dict(e)
+        print(w)
+    except FileNotFoundError:
+        x = open('settings.dat', 'w')
+        x.close()
+        return None
