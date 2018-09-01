@@ -1,4 +1,5 @@
 # This project is created by Michael Wang, a student from Knox Grammar School.
+# With help from Edward Ji, another student from Knox Grammar School.
 
 # modules
 import pygame
@@ -8,6 +9,7 @@ from sge import *
 
 # initiation
 pygame.init()
+game_data = sge_load()
 
 clock = pygame.time.Clock()
 
@@ -17,8 +19,15 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
-display_height = 800
-display_width = 800
+try:
+    display_height = game_data[display_height]
+except:
+    display_height = 800
+
+try:
+    display_width = game_data[display_width]
+except:
+    display_width = 800
 
 game_display = pygame.display.set_mode([display_width, display_height])
 
