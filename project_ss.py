@@ -159,6 +159,7 @@ def ss_pause():
 
 def ss():
     while True:
+
         ss_init()
         ss_run = True
         ss_pos = [0, 0]
@@ -169,18 +170,21 @@ def ss():
         ss_bad_cooldown = 0
         ss_score = 0
         ss_bad_move_cooldown = 0
+
         while ss_run:
             ss_clear()
             clock.tick(0)
             ss_rect(0, 600, 800, 200, black)  # Ground
             ss_fire = False
+
             for event in pygame.event.get():  # Input
                 if event.type == pygame.QUIT:
                     pygame.display.quit()
                     pygame.quit()
                     quit()
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_q]:
+            
+            if keys[pygame.K_q]:  # Quit
                 pygame.display.quit()
                 pygame.quit()
                 quit()
@@ -196,13 +200,15 @@ def ss():
             if keys[pygame.K_s]:  # Down
                 if ss_pos[1] < 560:
                     ss_pos[1] += 2
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE]:  # Fire
                 ss_fire = True
-            if keys[pygame.K_p]:
+            if keys[pygame.K_p]:  # Pause
                 ss_pause()
+
             # Gravity
             if ss_pos[1] < 560:
                 ss_pos[1] += 1
+
             # Fire
             if ss_cooldown%5 == 0:
                 if ss_fire == True:
