@@ -5,6 +5,7 @@
 import pygame
 import os
 from random import randint
+from random import *
 
 pygame.init()
 
