@@ -20,15 +20,22 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 
 try:
-    display_height = game_data[display_height]
+    if int(game_data['display_height']) > 0:
+        display_height = int(game_data['display_height'])
+    else:
+        display_height = 800
 except:
     display_height = 800
 
 try:
-    display_width = game_data[display_width]
+    if int(game_data['display_width']) > 0:
+        display_width = int(game_data['display_width'])
+    else:
+        display_width = 800
 except:
     display_width = 800
 
+print([display_width, display_height])
 game_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
