@@ -45,7 +45,7 @@ class Bullet:
         else:
             Bullet.good.append(self)
 
-    def mvoe(self):
+    def move(self):
         self.x = Bullet.speed if self.harmful else -Bullet.speed
 
     def display(self):
