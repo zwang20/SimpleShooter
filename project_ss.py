@@ -97,7 +97,7 @@ pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 
 
 class Bullet:
-    width = 1
+    width = 2
     length = 20
     speed = 10
     good = []
@@ -113,14 +113,13 @@ class Bullet:
             Bullet.good.append(self)
 
     def move(self):
-        if self.harmful:
-            self.x = Bullet.speed
-        else:
-            self.x = -Bullet.speed
-        # self.x = Bullet.speed if self.harmful else -Bullet.speed
+        self.x -= Bullet.speed if self.harmful else -Bullet.speed
 
     def display(self):
-        sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+        if self.harmful:
+            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+        else:
+            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
 class Enemy:
     width = 20
@@ -250,11 +249,16 @@ def ss():
                 if ss_fire == True:
                     if ss_cooldown < 90:
                         sge_print(game_display, 'Pew', ss_pos[0]+20, ss_pos[1])
-                        ss_bullets.append(Bullet(ss_pos[0]+20, ss_pos[1]+10, False))
+                        Bullet(ss_pos[0]+20, ss_pos[1]+10, False)
                         # ss_bullets.append([ss_pos[0]+20, ss_pos[1]+10])
                         ss_cooldown += 20
             if ss_cooldown > 0:
                 ss_cooldown -= 1
+
+            # display
+            for bullet in Bullet.good:
+                bullet.display()
+                bullet.move()
 
                 # TODO
 
