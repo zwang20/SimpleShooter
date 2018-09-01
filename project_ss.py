@@ -128,7 +128,7 @@ class Bullet:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
 
     def __del__(self):
-        if harmful:
+        if self.harmful:
             Bullet.bad.remove(self)
         else:
             Bullet.good.remove(self)
@@ -272,6 +272,8 @@ def ss():
             for bullet in Bullet.good:
                 bullet.display()
                 bullet.move()
+                if bullet.x > 800:
+                    bullet.__del__()
 
             # TODO
 
