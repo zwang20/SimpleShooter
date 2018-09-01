@@ -1,12 +1,12 @@
 # This project is created by Michael Wang, a student from Knox Grammar School.
 
-# import
+# modules
 import pygame
 import os
 from random import randint
 from random import *
 
-# init
+# initiation
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -17,45 +17,82 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
-ss_display = pygame.display.set_mode([800, 800])
+display_height = 800
+display_width = 800
+
+ss_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
 
-# Add Icon
+# adding Icon
 pygame.display.set_icon(
 pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 )
 
-def ss_bad_ai(px, py, bx, by, mode='a', difficulty='normal'):
-    ss_bad_ai_temp = randint(0,3)
-    if ss_bad_ai_temp == 0:
-        if by > 30:
-            del ss_bad_ai_temp
-            return 'n'
-        else:
-            del ss_bad_ai_temp
-            return 's'
-    elif ss_bad_ai_temp == 1:
-        if by < 600:
-            del ss_bad_ai_temp
-            return 'e'
-        else:
-            del ss_bad_ai_temp
-            return 'w'
-    elif ss_bad_ai_temp == 2:
-        if by < 500:
-            del ss_bad_ai_temp
-            return 's'
-        else:
-            del ss_bad_ai_temp
-            return 'n'
-    elif ss_bad_ai_temp == 3:
-        if by > 30:
-            del ss_bad_ai_temp
-            return 'w'
-        else:
-            del ss_bad_ai_temp
-            return 'e'
+class Bullt:
+    width = 1
+    length = 20
+    speed = 10
+
+    def __init__(self, x, y, dir='l'):
+        self.x = x
+        self.y = y
+        self.dir = dir
+
+    def mvoe(self):
+        self.x = 10
+
+    def display(self):
+        ss_rect(self.x, self.y, Bullet.length, Bullet.width)
+
+class Enemy:
+    width = 20
+    height = 40
+    family = []
+
+    def __init__(self):
+        self.spawn()
+        Enemy.family.append(self)
+
+    def spawn(self):
+        self.x = display_width - Enemy.width - 10
+        self.y = randint(0, display_height - Enemy.height)
+
+    def display(self):
+        ss_rect(self.x, self.y, Enemy.width, Enemy.height)
+        ss_rect(self.x - 5, self.y + 10, 5, 5)
+
+    def move(player_x, player_y, difficulty='normal'):
+
+        # ss_bad_ai_temp = randint(0,3)
+        # if ss_bad_ai_temp == 0:
+        #     if by > 30:
+        #         del ss_bad_ai_temp
+        #         return 'n'
+        #     else:
+        #         del ss_bad_ai_temp
+        #         return 's'
+        # elif ss_bad_ai_temp == 1:
+        #     if by < 600:
+        #         del ss_bad_ai_temp
+        #         return 'e'
+        #     else:
+        #         del ss_bad_ai_temp
+        #         return 'w'
+        # elif ss_bad_ai_temp == 2:
+        #     if by < 500:
+        #         del ss_bad_ai_temp
+        #         return 's'
+        #     else:
+        #         del ss_bad_ai_temp
+        #         return 'n'
+        # elif ss_bad_ai_temp == 3:
+        #     if by > 30:
+        #         del ss_bad_ai_temp
+        #         return 'w'
+        #     else:
+        #         del ss_bad_ai_temp
+        #         return 'e'
 
 def ss_print(string='Test', x=0, y=0, colour=black):
     ss_display.blit(pygame.font.SysFont("arial", 25).render(string, True, colour), (x, y))
@@ -204,7 +241,9 @@ def ss():
             ss_rect(700, 790, ss_cooldown, 10, red)
 
             # Enemy
-            ss_rect(ss_bad_pos[0], ss_bad_pos[1], 20, 40)
+            if not Enemy.family:
+                enemy = Enemy()
+            enemy.display()
 
             # Bad
             ss_bullets_temp = []
