@@ -1,9 +1,12 @@
 # This project is created by Michael Wang, a student from Knox Grammar School.
 
+# import
 import pygame
 import os
 from random import randint
+from random import *
 
+# init
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -11,8 +14,8 @@ clock = pygame.time.Clock()
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
-blue = (0, 0, 255)
 green = (0, 255, 0)
+blue = (0, 0, 255)
 
 display_height = 800
 display_width = 800
