@@ -1,6 +1,4 @@
-# Edward is an idiot
 # This project is created by Michael Wang, a student from Knox Grammar School.
-# Hahahahahaha
 
 import pygame
 import os
@@ -101,6 +99,24 @@ def ss_player(x, y):
     ss_rect(x, y, 20, 40)
     ss_rect(x+20, y+10, 5, 5)
 
+def ss_pause():
+    ss_pause = True
+    while ss_pause:
+        ss_clear()
+        ss_print('Paused')
+        ss_print('To unpause press x', 1, 30)
+        pygame.display.update()
+        ss_keys = pygame.key.get_pressed()
+        if ss_keys[pygame.K_x]:
+            ss_pause = False
+        for event in pygame.event.get():  # Input
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.display.quit()
+                    pygame.quit()
+            if event.type == pygame.QUIT:
+                pygame.display.quit()
+                pygame.quit()
 
 def ss():
     while True:
@@ -145,24 +161,7 @@ def ss():
             if ss_keys[pygame.K_SPACE]:
                 ss_fire = True
             if ss_keys[pygame.K_p]:
-                ss_pause = True
-                while ss_pause:
-                    ss_clear()
-                    ss_print('Paused')
-                    ss_print('To unpause press x', 1, 30)
-                    ss_print(str(randint(10**50, 10**51)), 1, 100)
-                    pygame.display.update()
-                    ss_keys = pygame.key.get_pressed()
-                    if ss_keys[pygame.K_x]:
-                        ss_pause = False
-                    for event in pygame.event.get():  # Input
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_q:
-                                pygame.display.quit()
-                                pygame.quit()
-                        if event.type == pygame.QUIT:
-                            pygame.display.quit()
-                            pygame.quit()
+                ss_pause()
                             #quit()
             # Gravity
             if ss_pos[1] < 560:
