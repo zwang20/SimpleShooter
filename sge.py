@@ -5,7 +5,7 @@ print('Simple Game Engine by Michael')
 
 def sge_print(display, string='Test', x=0, y=0, colour=(0, 0, 0)):
     display.blit(pygame.font.SysFont("arial",
-        25).render(string, True, colour), (x, y))
+        25).render(str(string), True, colour), (x, y))
 
 # what is the point of having this?! I'm lazy, also why not
 def sge_rect(display, x, y, width, height, colour=(0, 0, 0)):
