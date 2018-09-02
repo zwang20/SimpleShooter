@@ -129,7 +129,10 @@ class Bullet:
             self.despawn()
 
     def display(self):
+        if self.harmful:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+        else:
+            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
 
     def despawn(self):
         if self.harmful:
@@ -245,7 +248,7 @@ class Enemy:
     def smart_spawn():
         if len(Enemy.family) <= Enemy.limit:
             Enemy.offset += 30
-            Enemy("hell")
+            Enemy("hard")
 
 
 def ss_init():
