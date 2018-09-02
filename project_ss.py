@@ -74,7 +74,14 @@ try:
 except:
     display_width = 800
 
-ground_height = 200 # try not to hard code
+try:
+    if int(game_data['ground_height']) > 0:
+        ground_height = int(game_data['ground_height'])
+    else:
+        ground_height = 200
+except:
+    ground_height = 200 # try not to hard code
+
 
 sge_clear()
 sge_print(string='Adjusting size')
@@ -255,7 +262,9 @@ def ss():
         while ss_run:
             sge_clear(game_display)
             clock.tick(60)
-            sge_rect(game_display, 0, 600, 800, 200, black)  # Ground
+
+            sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
+
             ss_fire = False
 
             for event in pygame.event.get():  # Input
