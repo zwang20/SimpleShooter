@@ -114,7 +114,7 @@ pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 class Bullet:
     width = 2
     length = 20
-    speed = 10
+    speed = 8
     good = []
     bad = []
 
