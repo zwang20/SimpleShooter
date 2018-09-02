@@ -346,7 +346,7 @@ class Enemy:
             Bullet(self.x - 5, self.y + 7, True)
 
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
-        for bullet in Bullet.good :# + Rocket.rockets
+        for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
                 if time.time() - self.spawn_protect > 1:
                     self.despawn()
@@ -470,9 +470,11 @@ def ss():
                 enemy.display()
             for bullet in Bullet.good + Bullet.bad:
                 bullet.display()
+
             player.display()
-            # Rocket() if randint(0,300) == 0
-            Rocket()
+
+            if randint(0,200) == 0: Rocket()
+
             for rocket in Rocket.rockets:
                 rocket.display()
                 rocket.move()
