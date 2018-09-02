@@ -1,7 +1,7 @@
 # modules
 import pygame
 import time
-from data import *  # Edward this works don't change it 'cause i don't know why
+from data import *
 from sge import *
 
 # loading screen
@@ -44,7 +44,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
 green = (0, 255, 0)
-blue = (0, 0, 255)
+blue = (0, 102, 255)
 
 
 sge_clear()
@@ -181,8 +181,8 @@ class Player:
             self.cooldown -= 1
         if self.y < 560:
             self.y += 1
-        sge_rect(game_display, self.x, self.y, 20, 40)
-        sge_rect(game_display, self.x + 20, self.y + 10, 5, 5)
+        sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
+        sge_rect(game_display, self.x + Player.width, self.y + Player.height, 5, 5, white)
 
 
 class Enemy:
@@ -216,8 +216,8 @@ class Enemy:
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
-        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height)
-        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5)
+        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, white)
+        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, white)
 
     def move(self): # this now contains enemy ai
         self.y += self.speed if self.dir == "down" else -self.speed
