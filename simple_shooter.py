@@ -127,7 +127,7 @@ sge_print(string='Adding icon')
 pygame.display.update()
 
 pygame.display.set_icon(
-pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
+pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png'))
 )
 
 
