@@ -428,16 +428,15 @@ def ss():
 
             Enemy.smart_spawn()
 
-            # DISPLAY
-            sge_rect(game_display, 700, 790, 100, 10, white)
-            sge_rect(game_display, 700, 790, player.cooldown, 10, red)
-            sge_print(game_display, Player.score, colour=white)
-
             for enemy in Enemy.family:
                 enemy.display()
             for bullet in Bullet.good + Bullet.bad:
                 bullet.display()
             player.display()
+
+            sge_rect(game_display, display_width-100, display_height-10, 100, 10, white)
+            sge_rect(game_display, display_width-100, display_height-10, player.cooldown, 10, red)
+            sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
 
