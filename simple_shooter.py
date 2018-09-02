@@ -120,7 +120,7 @@ sge_clear()
 sge_print(string='Loading explosions')
 pygame.display.update()
 
-explosion = pygame.image.load(os.path.join('assets', 'explosion.jpg'))
+explosion = pygame.image.load(os.path.join('assets', 'explosion.png'))
 
 
 sge_clear()
