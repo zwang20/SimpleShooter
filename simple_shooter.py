@@ -343,10 +343,6 @@ def ss_init():
         pygame.display.update()
 
 
-def ss_bullet(x, y, colour=blue):
-    sge_rect(game_display, x, y, 10, 2, colour)
-
-
 def ss_pause():
     ss_pause = True
     while ss_pause:
