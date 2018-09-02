@@ -191,7 +191,7 @@ class Enemy:
     limit = 4
     width = 20
     height = 40
-    family = []
+    family = [None for each in range(1,11)]
 
     def __init__(self, difficulty='normal'):
         self.spawn()
@@ -235,23 +235,23 @@ class Enemy:
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
-                    if time.time() - self.spawn_protect > 1:
-                        self.despawn()
-                        bullet.despawn()
-                        Player.score += 10
-                    else:
-                        sge_print(game_display,
-                                  "spawn protection",
-                                  self.x - Enemy.height,
-                                  self.y,
-                                  colour=white)
-                        bullet.despawn()
+                if time.time() - self.spawn_protect > 1:
+                    self.despawn()
+                    bullet.despawn()
+                    Player.score += 10
+                else:
+                    sge_print(game_display,
+                              "spawn protection",
+                              self.x - Enemy.height,
+                              self.y,
+                              colour=white)
+                    bullet.despawn()
 
     def despawn(self):
             Enemy.family.remove(self)
 
     def smart_spawn():
-        if len(Enemy.family) <= Enemy.limit:
+        if len(Enemy.family) < Enemy.limit:
             Enemy.offset += 30
             Enemy("hard")
 
