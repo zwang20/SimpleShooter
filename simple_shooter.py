@@ -1,11 +1,15 @@
 # modules
 import pygame
-import time
 from data import *
 from sge import *
 
 # loading screen
 pygame.init()
+
+sge_clear()
+sge_print(string='Loading time')
+pygame.display.update()
+import time
 
 
 sge_clear()
@@ -13,6 +17,7 @@ sge_print(string='Loading os')
 pygame.display.update()
 
 import os
+
 
 sge_clear()
 sge_print(string='Loading randint')
@@ -73,6 +78,11 @@ try:
 except:
     display_width = 800
 
+
+sge_clear()
+sge_print(string='Adjusting ground height')
+pygame.display.update()
+
 try:
     if int(game_data['ground_height']) > 0:
         ground_height = int(game_data['ground_height'])
@@ -87,10 +97,22 @@ sge_print(string='Adjusting size')
 pygame.display.update()
 
 game_display = pygame.display.set_mode([display_width, display_height])
-background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
-background_image = pygame.transform.scale(background_image, (display_width, display_height))
+
+
+# sge_clear()
+# sge_print(string='Loading background')
+# pygame.display.update()
+#
+# background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
+# background_image = pygame.transform.scale(background_image, (display_width, display_height))
+
+sge_clear()
+sge_print(string='Loading instructions')
+pygame.display.update()
+
 instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
 instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
+
 
 sge_clear()
 sge_print(string='Adjusting caption')
