@@ -14,7 +14,6 @@ pygame.display.update()
 
 import os
 
-
 sge_clear()
 sge_print(string='Loading randint')
 pygame.display.update()
@@ -86,7 +85,8 @@ sge_print(string='Adjusting size')
 pygame.display.update()
 
 game_display = pygame.display.set_mode([display_width, display_height])
-
+background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
+background_image = pygame.transform.scale(background_image, (display_width, display_height))
 
 sge_clear()
 sge_print(string='Adjusting caption')
@@ -273,11 +273,9 @@ def ss_bullet(x, y, colour=blue):
 
 
 def ss_pause():
-    background_image = pygame.image.load(os.path.join('assets', 'background_image.jpg'))
     ss_pause = True
     while ss_pause:
         # sge_clear(game_display)
-        background_image = pygame.transform.scale(background_image, (display_width, display_height))
         game_display.blit(background_image, (0,0))
         sge_print(string='Paused', colour = white)
         sge_print(string = 'To unpause press x',y=30, colour = white)
@@ -306,7 +304,7 @@ def ss():
         player = Player()
 
         while ss_run:
-            sge_clear(game_display)
+            game_display.blit(background_image, (0,0))
             clock.tick(60)
 
             sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
