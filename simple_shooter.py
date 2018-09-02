@@ -116,6 +116,13 @@ instruction_image = pygame.transform.scale(instruction_image, (display_width, di
 
 
 sge_clear()
+sge_print(string='Loading explosions')
+pygame.display.update()
+
+explosion = pygame.image.load(os.path.join('assets', 'explosion.jpg'))
+
+
+sge_clear()
 sge_print(string='Adjusting caption')
 pygame.display.update()
 
@@ -312,6 +319,7 @@ class Enemy:
 
     def despawn(self):
             Enemy.family.remove(self)
+            game_display.blit(explosion, (self.x, self.y))
 
     def smart_spawn():
         while len(Enemy.family) < Enemy.limit:
