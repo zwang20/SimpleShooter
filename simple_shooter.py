@@ -159,7 +159,7 @@ class Bullet:
 
     def move(self):
         self.x -= Bullet.speed if self.harmful else -Bullet.speed
-        if self.x > 800 or self.x < 0:
+        if self.x > display_width-25 or self.x < 0:
             self.despawn()
 
     def display(self):
