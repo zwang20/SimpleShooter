@@ -109,7 +109,7 @@ pygame.image.load(os.path.join('assets', '32x32_project_ss.png'))
 class Bullet:
     width = 2
     length = 20
-    speed = 10
+    speed = 8
     good = []
     bad = []
 
@@ -346,7 +346,8 @@ def ss():
         player = Player()
 
         while ss_run:
-            game_display.blit(background_image, (0,0))
+            game_display.fill(grey)
+            # game_display.blit(background_image, (0,0))
             clock.tick(60)
 
             sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
