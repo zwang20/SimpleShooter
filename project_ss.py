@@ -312,7 +312,7 @@ def ss():
             if keys[pygame.K_a]:  # Left
                 player.move(-3, 0)
             if keys[pygame.K_s]:  # Down
-                player.move(0, -2)
+                player.move(0, 2)
             if keys[pygame.K_SPACE]:  # Fire
                 player.fire()
             if keys[pygame.K_p]:  # Pause
