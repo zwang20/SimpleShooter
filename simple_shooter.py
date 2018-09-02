@@ -86,8 +86,14 @@ sge_print(string='Adjusting size')
 pygame.display.update()
 
 game_display = pygame.display.set_mode([display_width, display_height])
-background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
-background_image = pygame.transform.scale(background_image, (display_width, display_height))
+
+background_image = pygame.image.load(
+os.path.join('assets', 'background_image.png')
+)
+
+background_image = pygame.transform.scale(
+background_image, (display_width, display_height)
+)
 
 sge_clear()
 sge_print(string='Adjusting caption')
@@ -131,9 +137,13 @@ class Bullet:
 
     def display(self):
         if self.harmful:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, red
+            )
         else:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, blue
+            )
 
     def despawn(self):
         if self.harmful:
