@@ -201,7 +201,7 @@ class Enemy:
     limit = 4
     width = 20
     height = 40
-    family = []
+    family = [None for each in range(1,11)]
 
     def __init__(self, difficulty='normal'):
         self.spawn()
@@ -261,7 +261,7 @@ class Enemy:
             Enemy.family.remove(self)
 
     def smart_spawn():
-        if len(Enemy.family) <= Enemy.limit:
+        if len(Enemy.family) < Enemy.limit:
             Enemy.offset += 30
             Enemy("hard")
 
