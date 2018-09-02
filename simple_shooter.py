@@ -140,10 +140,11 @@ pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png'))
 
 
 sge_clear()
-sge_print(string='Loading time')
+sge_print(string='Loading laser sounds')
 pygame.display.update()
 
-laser_sound = pygame.mixer.music.load(os.path.join('assets', 'sfx_laser1.ogg'))
+laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sfx_laser1.ogg'))
+laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sfx_laser2.ogg'))
 
 
 class Bullet:
@@ -154,6 +155,7 @@ class Bullet:
     bad = []
 
     def __init__(self, x, y, harmful=True):
+        pygame.mixer.Sound.play(laser_sound_1) if randint(0,1) == 0 else pygame.mixer.Sound.play(laser_sound_2)
         self.x = x
         self.y = y
         self.harmful = harmful
