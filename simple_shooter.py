@@ -197,9 +197,25 @@ class Bullet:
 
 
 class Rocket:
+    rockets=[]
+    speed = 6
 
     def __init__(self):
-        pass
+        self.x = display_width-10
+        self.y = display_height-ground_height-10
+        Rocket.rockets.append(self)
+
+    def move(self):
+        self.x -= Rocket.speed
+        if self.x > display_width or self.x < 0:
+            self.despawn()
+
+    def display(self):
+        sge_rect(x = self.x, y = self.y, height = 10, width = 10, colour = white)
+
+    def despawn(self):
+        game_display.blit(explosion, (self.x, self.y))
+        Rocket.rockets.remove(self)
 
 
 class Player:
@@ -236,6 +252,11 @@ class Player:
                 if self.y <= bullet.y <= self.y + Player.height:
                     bullet.despawn()
                     Player.score -= 10
+        for rocket in Rocket.rockets:
+            if self.x <= rocket.x <= self.x + Player.width:
+                if self.y <= rocket.y <= self.y + Player.height:
+                    rocket.despawn()
+                    Player.score -= 50
 
     def renew(self):
         # cooldown recover
@@ -325,7 +346,7 @@ class Enemy:
             Bullet(self.x - 5, self.y + 7, True)
 
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
-        for bullet in Bullet.good:
+        for bullet in Bullet.good :# + Rocket.rockets
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
                 if time.time() - self.spawn_protect > 1:
                     self.despawn()
@@ -405,7 +426,7 @@ def ss():
             game_display.fill(grey)
             clock.tick(60)
 
-            sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
+            # sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
 
             for event in pygame.event.get():  # Input
                 if event.type == pygame.QUIT:
@@ -450,6 +471,11 @@ def ss():
             for bullet in Bullet.good + Bullet.bad:
                 bullet.display()
             player.display()
+            # Rocket() if randint(0,300) == 0
+            Rocket()
+            for rocket in Rocket.rockets:
+                rocket.display()
+                rocket.move()
 
             sge_rect(game_display, display_width-100, display_height-10, 100, 10, white)
             sge_rect(game_display, display_width-100, display_height-10, player.cooldown, 10, red)
