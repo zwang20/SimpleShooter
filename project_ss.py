@@ -121,7 +121,7 @@ class Bullet:
         else:
             Bullet.good.append(self)
             temp = 25
-        sge_print(game_display, 'Pew', x + temp, y)
+        sge_print(game_display, 'Pew', x + temp, y, colour=white)
 
     def move(self):
         self.x -= Bullet.speed if self.harmful else -Bullet.speed
@@ -182,7 +182,7 @@ class Player:
         if self.y < 560:
             self.y += 1
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
-        sge_rect(game_display, self.x + Player.width, self.y + Player.height, 5, 5, white)
+        sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
 
 class Enemy:
@@ -239,7 +239,11 @@ class Enemy:
                         bullet.despawn()
                         Player.score += 10
                     else:
-                        sge_print(game_display, "spawn protection", self.x - Enemy.height, self.y)
+                        sge_print(game_display,
+                                  "spawn protection",
+                                  self.x - Enemy.height,
+                                  self.y,
+                                  colour=white)
                         bullet.despawn()
 
     def despawn(self):
@@ -349,7 +353,7 @@ def ss():
                 bullet.display()
                 bullet.move()
 
-            sge_print(game_display, Player.score)
+            sge_print(game_display, Player.score, colour=white)
             player.get_hit()
             player.display()
 
