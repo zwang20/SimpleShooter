@@ -18,7 +18,7 @@ sge_clear()
 sge_print(string='Loading randint')
 pygame.display.update()
 
-from random import randint
+from random import randint, choice
 
 
 sge_clear()
@@ -41,8 +41,9 @@ pygame.display.update()
 
 white = (255, 255, 255)
 black = (0, 0, 0)
-red = (255, 0, 0)
-green = (0, 255, 0)
+red = (204, 51, 0)
+orange = (255, 153, 0)
+green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
 
@@ -86,14 +87,8 @@ sge_print(string='Adjusting size')
 pygame.display.update()
 
 game_display = pygame.display.set_mode([display_width, display_height])
-
-background_image = pygame.image.load(
-os.path.join('assets', 'background_image.png')
-)
-
-background_image = pygame.transform.scale(
-background_image, (display_width, display_height)
-)
+background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
+background_image = pygame.transform.scale(background_image, (display_width, display_height))
 
 sge_clear()
 sge_print(string='Adjusting caption')
@@ -137,13 +132,9 @@ class Bullet:
 
     def display(self):
         if self.harmful:
-            sge_rect(
-            game_display, self.x, self.y, Bullet.length, Bullet.width, red
-            )
+            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
         else:
-            sge_rect(
-            game_display, self.x, self.y, Bullet.length, Bullet.width, blue
-            )
+            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
 
     def despawn(self):
         if self.harmful:
@@ -187,48 +178,80 @@ class Player:
                     bullet.despawn()
                     Player.score -= 10
 
-    def display(self):
+    def renew(self):
+        # cooldown recover
         if self.cooldown > 0:
             self.cooldown -= 1
+        # gravity
         if self.y < display_height - ground_height - Player.height:
             self.y += 1
+        # score above 0
+        if Player.score < 0:
+            Player.score = 0
+        # difficulty renew
+        if Player.score == 0:
+            Enemy.limit = 1
+        elif Player.score <= 30:
+            Enemy.limit = 2
+        elif Player.score <= 50:
+            Enemy.limit = 3
+        elif Player.score <= 70:
+            Enemy.limit = 4
+        elif Player.score <= 80:
+            Enemy.limit = 5
+        else:
+            Enemy.limit = 6
+
+    def display(self):
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
         sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
 
 class Enemy:
-    offset = 10
-    limit = 4
+    spawn_range = 500
+    limit = 2
     width = 20
     height = 40
-    family = [None for each in range(1,11)]
+    family = []
+    _difficulty = ("normal", "hard", "hell")
 
-    def __init__(self, difficulty='normal'):
+    def __init__(self, difficulty=None):
         self.spawn()
+        if difficulty == None:
+            difficulty = choice(Enemy._difficulty)
         if difficulty == "normal":
-            self.speed = 1
+            self.speed = randint(1, 2)
             self.fire_cooldown = 1
         elif difficulty == "hard":
-            self.speed = 3
+            self.speed = randint(2, 4)
             self.fire_cooldown = 0.5
         elif difficulty == "hell":
-            self.speed = 5
+            self.speed = randint(4, 7)
             self.fire_cooldown = 0.3
-        else:
+        elif difficulty == "dummy":
             self.speed = 0
-            self.fire_cooldown = 1
+            self.fire_cooldown = 99999
+        self.difficulty = difficulty
         self.dir = "up"
         self.fire_timer = time.time()
         self.spawn_protect = time.time()
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = display_width - Enemy.width - Enemy.offset
+        self.x = randint(Enemy.spawn_range, display_width - Enemy.width)
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
-        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, white)
-        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, white)
+        if self.difficulty == "normal":
+            color = green
+        elif self.difficulty == "hard":
+            color = orange
+        elif self.difficulty == "hell":
+            color = red
+        elif self.difficulty == "dummy":
+            color = white
+        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, color)
+        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, color)
 
     def move(self): # this now contains enemy ai
         self.y += self.speed if self.dir == "down" else -self.speed
@@ -248,7 +271,12 @@ class Enemy:
                 if time.time() - self.spawn_protect > 1:
                     self.despawn()
                     bullet.despawn()
-                    Player.score += 10
+                    if self.difficulty == "normal":
+                        Player.score += 10
+                    elif self.difficulty == "hard":
+                        Player.score += 15
+                    elif self.difficulty == "hell":
+                        Player.score += 20
                 else:
                     sge_print(game_display,
                               "spawn protection",
@@ -261,9 +289,8 @@ class Enemy:
             Enemy.family.remove(self)
 
     def smart_spawn():
-        if len(Enemy.family) < Enemy.limit:
-            Enemy.offset += 30
-            Enemy("hard")
+        while len(Enemy.family) < Enemy.limit:
+            Enemy()
 
 
 def ss_init():
@@ -293,7 +320,7 @@ def ss_pause():
         # sge_clear(game_display)
         game_display.blit(background_image, (0,0))
         sge_print(string='Paused', colour = white)
-        sge_print(string = 'To unpause press x',y=30, colour = white)
+        sge_print(string = 'To unpause press keyboard "X"',y=30, colour = white)
         pygame.display.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_x]:
@@ -336,36 +363,41 @@ def ss():
                 pygame.quit()
                 quit()
             if keys[pygame.K_w]:  # Up
-                player.move(0, -4)
+                player.move(0, -6)
             if keys[pygame.K_d]:  # Right
-                player.move(3, 0)
+                player.move(4, 0)
             if keys[pygame.K_a]:  # Left
-                player.move(-3, 0)
+                player.move(-4, 0)
             if keys[pygame.K_s]:  # Down
-                player.move(0, 2)
+                player.move(0, 3)
             if keys[pygame.K_SPACE]:  # Fire
                 player.fire()
             if keys[pygame.K_p]:  # Pause
                 ss_pause()
+
+            # CALCULATIONS
+            for enemy in Enemy.family:
+                enemy.move()
+                enemy.get_hit()
+                enemy.fire()
+
+            for bullet in Bullet.good + Bullet.bad:
+                bullet.move()
+
+            player.get_hit()
+            player.renew()
 
             Enemy.smart_spawn()
 
             # DISPLAY
             sge_rect(game_display, 700, 790, 100, 10, white)
             sge_rect(game_display, 700, 790, player.cooldown, 10, red)
+            sge_print(game_display, Player.score, colour=white)
 
             for enemy in Enemy.family:
-                enemy.move()
-                enemy.get_hit()
                 enemy.display()
-                enemy.fire()
-
             for bullet in Bullet.good + Bullet.bad:
                 bullet.display()
-                bullet.move()
-
-            sge_print(game_display, Player.score, colour=white)
-            player.get_hit()
             player.display()
 
             pygame.display.update()
