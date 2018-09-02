@@ -349,7 +349,6 @@ def ss():
 
         while ss_run:
             game_display.fill(grey)
-            # game_display.blit(background_image, (0,0))
             clock.tick(60)
 
             sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
