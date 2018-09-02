@@ -179,6 +179,7 @@ class Bullet:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
 
     def despawn(self):
+        game_display.blit(explosion, (self.x, self.y))
         if self.harmful:
             Bullet.bad.remove(self)
         else:
@@ -329,7 +330,6 @@ class Enemy:
 
     def despawn(self):
             Enemy.family.remove(self)
-            game_display.blit(explosion, (self.x, self.y))
 
     def smart_spawn():
         while len(Enemy.family) < Enemy.limit:
