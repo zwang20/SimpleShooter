@@ -196,6 +196,12 @@ class Bullet:
             Bullet.good.remove(self)
 
 
+class Rocket:
+
+    def __init__(self):
+        pass
+
+
 class Player:
     width = 20
     height = 40
@@ -344,6 +350,7 @@ class Enemy:
     def smart_spawn():
         while len(Enemy.family) < Enemy.limit:
             Enemy()
+
 
 
 def ss_init():
