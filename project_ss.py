@@ -140,6 +140,10 @@ class Bullet:
             Bullet.good.remove(self)
 
 
+class Player:
+    def __init__(self):
+        pass
+
 class Enemy:
     offset = 10
     limit = 4
