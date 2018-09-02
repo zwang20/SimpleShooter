@@ -147,6 +147,9 @@ laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.
 laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
 
 
+pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
+pygame.mixer.music.play(-1)
+
 class Bullet:
     width = 2
     length = 20
