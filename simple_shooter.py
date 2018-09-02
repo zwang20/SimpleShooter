@@ -137,9 +137,13 @@ class Bullet:
 
     def display(self):
         if self.harmful:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, red
+            )
         else:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, blue
+            )
 
     def despawn(self):
         if self.harmful:
