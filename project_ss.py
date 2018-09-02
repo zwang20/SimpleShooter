@@ -1,12 +1,10 @@
-# This project is created by Michael Wang, a student from Knox Grammar School.
-# With help from Edward Ji, another student from Knox Grammar School.
-
 # modules
 import pygame
 import time
 from data import *  # Edward this works don't change it 'cause i don't know why
 from sge import *
-# Loading screen
+
+# loading screen
 pygame.init()
 
 
@@ -141,6 +139,8 @@ class Bullet:
 
 
 class Player:
+    width = 20
+    height = 40
     score = 0
 
     def __init__(self):
@@ -151,6 +151,14 @@ class Player:
     def move(self, move_x, move_y):
         self.x += move_x
         self.y += move_y
+        if self.x < 0:
+            self.x = 0
+        elif self.x > 300:
+            self.x = 300
+        if self.y < 0:
+            self.y = 0
+        elif self.y > display_height - ground_height - Player.height:
+            self.y = display_height - ground_height - Player.height
 
     def fire(self):
         if self.cooldown % 5 == 0:
@@ -160,9 +168,10 @@ class Player:
 
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.bad:
-            if self.x <= bullet.x <= self.x + 20 and self.y <= bullet.y <= self.y + 40:
-                bullet.despawn()
-                Player.score -= 5
+            if self.x <= bullet.x <= self.x + Player.width:
+                if self.y <= bullet.y <= self.y + Player.height:
+                    bullet.despawn()
+                    Player.score -= 10
 
     def display(self):
         if self.cooldown > 0:
@@ -236,7 +245,7 @@ class Enemy:
     def smart_spawn():
         if len(Enemy.family) <= Enemy.limit:
             Enemy.offset += 30
-            Enemy("normal")
+            Enemy("hell")
 
 
 def ss_init():
