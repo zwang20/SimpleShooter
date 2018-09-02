@@ -201,7 +201,8 @@ class Enemy:
     limit = 4
     width = 20
     height = 40
-    family = [None for each in range(1,11)]
+    family = []
+    # family = [None for each in range(1,11)]
 
     def __init__(self, difficulty='normal'):
         self.spawn()
