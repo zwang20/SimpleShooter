@@ -273,11 +273,14 @@ def ss_bullet(x, y, colour=blue):
 
 
 def ss_pause():
+    background_image = pygame.image.load(os.path.join('assets', 'background_image.jpg'))
     ss_pause = True
     while ss_pause:
-        sge_clear(game_display)
-        sge_print(game_display, 'Paused')
-        sge_print(game_display, 'To unpause press x', 1, 30)
+        # sge_clear(game_display)
+        background_image = pygame.transform.scale(background_image, (display_width, display_height))
+        game_display.blit(background_image, (0,0))
+        sge_print(string='Paused', colour = white)
+        sge_print(string = 'To unpause press x',y=30, colour = white)
         pygame.display.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_x]:
@@ -287,9 +290,11 @@ def ss_pause():
                 if event.key == pygame.K_q:
                     pygame.display.quit()
                     pygame.quit()
+                    quit()
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 pygame.quit()
+                quit()
 
 
 def ss():
