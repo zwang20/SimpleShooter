@@ -9,6 +9,7 @@ pygame.init()
 sge_clear()
 sge_print(string='Loading time')
 pygame.display.update()
+
 import time
 
 
@@ -136,6 +137,13 @@ pygame.display.update()
 pygame.display.set_icon(
 pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png'))
 )
+
+
+sge_clear()
+sge_print(string='Loading time')
+pygame.display.update()
+
+laser_sound = pygame.mixer.music.load(os.path.join('assets', 'sfx_laser1.ogg'))
 
 
 class Bullet:
