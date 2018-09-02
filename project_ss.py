@@ -180,7 +180,7 @@ class Player:
     def display(self):
         if self.cooldown > 0:
             self.cooldown -= 1
-        if self.y < 560:
+        if self.y < display_height - ground_height - Player.height:
             self.y += 1
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
         sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
@@ -224,7 +224,7 @@ class Enemy:
         self.y += self.speed if self.dir == "down" else -self.speed
         if self.y < self.speed:
             self.dir = "down"
-        elif self.y > 580 - self.speed:
+        elif self.y > display_height - ground_height - Enemy.height - self.speed:
             self.dir = "up"
 
     def fire(self):
