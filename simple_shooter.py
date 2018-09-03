@@ -270,15 +270,13 @@ class Player:
         if Player.score < 0:
             Player.score = 0
         # difficulty renew
-        if Player.score == 0:
-            Enemy.limit = 1
-        elif Player.score <= 30:
+        if Player.score <= 50:
             Enemy.limit = 2
-        elif Player.score <= 50:
+        elif Player.score <= 100:
             Enemy.limit = 3
-        elif Player.score <= 70:
+        elif Player.score <= 135:
             Enemy.limit = 4
-        elif Player.score <= 80:
+        elif Player.score <= 150:
             Enemy.limit = 5
         else:
             Enemy.limit = 6
