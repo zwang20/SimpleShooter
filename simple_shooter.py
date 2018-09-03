@@ -100,14 +100,6 @@ pygame.display.update()
 game_display = pygame.display.set_mode([display_width, display_height])
 
 
-# sge_clear()
-# sge_print(string='Loading background')
-# pygame.display.update()
-#
-# background_image = pygame.image.load(os.path.join('assets', 'background_image.png'))
-# background_image = pygame.transform.scale(background_image, (display_width, display_height))
-
-
 sge_clear()
 sge_print(string='Loading instructions')
 pygame.display.update()
