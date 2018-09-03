@@ -149,6 +149,10 @@ pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
 pygame.mixer.music.play(-1)
 
 
+sge_clear()
+sge_print(string='Loading bullets')
+pygame.display.update()
+
 class Bullet:
     width = 2
     length = 20
@@ -188,6 +192,10 @@ class Bullet:
             Bullet.good.remove(self)
 
 
+sge_clear()
+sge_print(string='Loading rockets')
+pygame.display.update()
+
 class Rocket:
     rockets = []
     speed = 6
@@ -210,6 +218,10 @@ class Rocket:
         game_display.blit(explosion, (self.x, self.y))
         Rocket.rockets.remove(self)
 
+
+sge_clear()
+sge_print(string='Loading player')
+pygame.display.update()
 
 class Player:
     width = 20
@@ -277,6 +289,10 @@ class Player:
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
         sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
+
+sge_clear()
+sge_print(string='Loading enemy')
+pygame.display.update()
 
 class Enemy:
     spawn_range = 500
@@ -359,13 +375,13 @@ class Enemy:
     def despawn(self):
             Enemy.family.remove(self)
 
+
 def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
         if randint(0,120) == 0:
             Rocket()
-
 
 
 def ss_init():
