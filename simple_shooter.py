@@ -197,12 +197,12 @@ class Bullet:
 
 
 class Rocket:
-    rockets=[]
+    rockets = []
     speed = 6
 
     def __init__(self):
-        self.x = display_width-10
-        self.y = display_height-ground_height-10
+        self.x = display_width - 10
+        self.y = display_height - ground_height - 10
         Rocket.rockets.append(self)
 
     def move(self):
