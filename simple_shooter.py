@@ -114,7 +114,7 @@ pygame.display.update()
 
 instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
 instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
-
+rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
 
 sge_clear()
 sge_print(string='Loading explosions')
@@ -199,6 +199,7 @@ class Bullet:
 class Rocket:
     rockets = []
     speed = 6
+    limit = 3
 
     def __init__(self):
         self.x = display_width - 10
@@ -211,7 +212,7 @@ class Rocket:
             self.despawn()
 
     def display(self):
-        sge_rect(x = self.x, y = self.y, height = 10, width = 10, colour = white)
+        game_display.blit(rocket_img, (self.x, self.y))
 
     def despawn(self):
         game_display.blit(explosion, (self.x, self.y))
@@ -368,9 +369,12 @@ class Enemy:
     def despawn(self):
             Enemy.family.remove(self)
 
-    def smart_spawn():
-        while len(Enemy.family) < Enemy.limit:
-            Enemy()
+def smart_spawn():
+    while len(Enemy.family) < Enemy.limit:
+        Enemy()
+    if len(Rocket.rockets) < Rocket.limit:
+        if randint(0,120) == 0:
+            Rocket()
 
 
 
@@ -464,7 +468,7 @@ def ss():
             player.get_hit()
             player.renew()
 
-            Enemy.smart_spawn()
+            smart_spawn()
 
             for enemy in Enemy.family:
                 enemy.display()
@@ -472,8 +476,6 @@ def ss():
                 bullet.display()
 
             player.display()
-
-            if randint(0,200) == 0: Rocket()
 
             for rocket in Rocket.rockets:
                 rocket.display()
