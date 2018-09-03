@@ -90,7 +90,7 @@ try:
     else:
         ground_height = 200
 except:
-    ground_height = 200 # try not to hard code
+    ground_height = 200
 
 
 sge_clear()
