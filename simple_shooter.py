@@ -426,7 +426,7 @@ def ss():
             game_display.fill(grey)
             clock.tick(60)
 
-            # sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
+            sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
 
             for event in pygame.event.get():  # Input
                 if event.type == pygame.QUIT:
