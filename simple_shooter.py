@@ -317,7 +317,7 @@ class Enemy:
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = randint(Enemy.spawn_range, display_width - Enemy.width)
+        self.x = randint(Enemy.spawn_range, display_width - Enemy.width - Bullet.width)
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
