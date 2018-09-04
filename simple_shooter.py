@@ -45,12 +45,16 @@ except:
     ground_height = 200
 
 game_display = pygame.display.set_mode([display_width, display_height])
+
+pygame.display.set_caption('Simple Shooter')
+pygame.display.set_icon(pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png')))
+
 instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
 instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
 rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
 explosion = pygame.image.load(os.path.join('assets', 'explosion.png'))
-pygame.display.set_caption('Simple Shooter')
-pygame.display.set_icon(pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png')))
+shield_img = pygame.image.load(os.path.join('assets', 'shield.png'))
+
 laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
 pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
@@ -250,7 +254,7 @@ class Enemy:
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
-                if time.time() - self.spawn_protect > 1:
+                if time.time() - self.spawn_protect > 99:
                     self.despawn()
                     bullet.despawn()
                     if self.difficulty == "easy":
@@ -262,15 +266,12 @@ class Enemy:
                     elif self.difficulty == 'hell':
                         Player.score += 30
                 else:
-                    sge_print(game_display,
-                              "spawn protection",
-                              self.x - Enemy.height,
-                              self.y,
-                              colour=white)
+                    game_display.blit(shield_img, (self.x, self.y))
                     bullet.despawn()
 
     def despawn(self):
             Enemy.family.remove(self)
+
 
 def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
@@ -278,6 +279,8 @@ def smart_spawn():
     if len(Rocket.rockets) < Rocket.limit:
         if randint(0,120) == 0:
             Rocket()
+
+
 def ss_init():
     sge_clear()
     sge_print(game_display, 'This is a simple shooter')
