@@ -1,50 +1,12 @@
-# modules
 import pygame
 from data import *
 from sge import *
-
-# loading screen
 pygame.init()
-
-sge_clear()
-sge_print(string='Loading time')
-pygame.display.update()
-
 import time
-
-
-sge_clear()
-sge_print(string='Loading os')
-pygame.display.update()
-
 import os
-
-
-sge_clear()
-sge_print(string='Loading randint')
-pygame.display.update()
-
 from random import randint, choice
-
-
-sge_clear()
-sge_print(string='Loading data')
-pygame.display.update()
-
 game_data = sge_load()
-
-
-sge_clear()
-sge_print(string='Loading clock')
-pygame.display.update()
-
 clock = pygame.time.Clock()
-
-
-sge_clear()
-sge_print(string='Loading colours')
-pygame.display.update()
-
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (204, 51, 0)
@@ -52,12 +14,6 @@ orange = (255, 153, 0)
 green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
-
-
-sge_clear()
-sge_print(string='Adjusting height')
-pygame.display.update()
-
 try:
     if int(game_data['display_height']) > 0:
         display_height = int(game_data['display_height'])
@@ -65,12 +21,6 @@ try:
         display_height = 800
 except:
     display_height = 800
-
-
-sge_clear()
-sge_print(string='Adjusting width')
-pygame.display.update()
-
 try:
     if int(game_data['display_width']) > 0:
         display_width = int(game_data['display_width'])
@@ -78,12 +28,6 @@ try:
         display_width = 800
 except:
     display_width = 800
-
-
-sge_clear()
-sge_print(string='Adjusting ground height')
-pygame.display.update()
-
 try:
     if int(game_data['ground_height']) > 0:
         ground_height = int(game_data['ground_height'])
@@ -91,68 +35,19 @@ try:
         ground_height = 200
 except:
     ground_height = 200
-
-
-sge_clear()
-sge_print(string='Adjusting size')
-pygame.display.update()
-
 game_display = pygame.display.set_mode([display_width, display_height])
-
-
-sge_clear()
-sge_print(string='Loading instructions')
-pygame.display.update()
-
 instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
 instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
 rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
-
-sge_clear()
-sge_print(string='Loading explosions')
-pygame.display.update()
-
 explosion = pygame.image.load(os.path.join('assets', 'explosion.png'))
-
-
-sge_clear()
-sge_print(string='Adjusting caption')
-pygame.display.update()
-
 pygame.display.set_caption('Simple Shooter')
-
-
-sge_clear()
-sge_print(string='Adding icon')
-pygame.display.update()
-
-pygame.display.set_icon(
-pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png'))
-)
-
-
-sge_clear()
-sge_print(string='Loading laser sounds')
-pygame.display.update()
-
+pygame.display.set_icon(pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png')))
 laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
-
-
-sge_clear()
-sge_print(string='Loading music')
-pygame.display.update()
-
 pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
 pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
 pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
 pygame.mixer.music.play(-1)
-
-
-sge_clear()
-sge_print(string='Loading bullets')
-pygame.display.update()
-
 class Bullet:
     width = 2
     length = 20
@@ -190,12 +85,6 @@ class Bullet:
             Bullet.bad.remove(self)
         else:
             Bullet.good.remove(self)
-
-
-sge_clear()
-sge_print(string='Loading rockets')
-pygame.display.update()
-
 class Rocket:
     rockets = []
     speed = 6
@@ -217,12 +106,6 @@ class Rocket:
     def despawn(self):
         game_display.blit(explosion, (self.x, self.y))
         Rocket.rockets.remove(self)
-
-
-sge_clear()
-sge_print(string='Loading player')
-pygame.display.update()
-
 class Player:
     width = 20
     height = 40
@@ -288,12 +171,6 @@ class Player:
     def display(self):
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
         sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
-
-
-sge_clear()
-sge_print(string='Loading enemy')
-pygame.display.update()
-
 class Enemy:
     spawn_range = 500
     limit = 2
@@ -374,20 +251,12 @@ class Enemy:
 
     def despawn(self):
             Enemy.family.remove(self)
-
-
 def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
         if randint(0,120) == 0:
             Rocket()
-
-
-sge_clear()
-sge_print(string='Loading init')
-pygame.display.update()
-
 def ss_init():
     sge_clear()
     sge_print(game_display, 'This is a simple shooter')
@@ -403,12 +272,6 @@ def ss_init():
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
         pygame.display.update()
-
-
-sge_clear()
-sge_print(string='Loading pause')
-pygame.display.update()
-
 def ss_pause():
     ss_pause = True
     while ss_pause:
@@ -430,12 +293,6 @@ def ss_pause():
                 pygame.display.quit()
                 pygame.quit()
                 quit()
-
-
-sge_clear()
-sge_print(string='Loading game')
-pygame.display.update()
-
 def ss():
     while True:
 
@@ -504,12 +361,6 @@ def ss():
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
-
-
-sge_clear()
-sge_print(string='Starting game')
-pygame.display.update()
-
 try:
     ss()
 except KeyboardInterrupt:
