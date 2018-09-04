@@ -254,7 +254,7 @@ class Enemy:
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
-                if time.time() - self.spawn_protect > 99:
+                if time.time() - self.spawn_protect > 1:
                     self.despawn()
                     bullet.despawn()
                     if self.difficulty == "easy":
