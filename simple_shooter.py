@@ -384,6 +384,10 @@ def smart_spawn():
             Rocket()
 
 
+sge_clear()
+sge_print(string='Loading init')
+pygame.display.update()
+
 def ss_init():
     sge_clear()
     sge_print(game_display, 'This is a simple shooter')
@@ -400,6 +404,10 @@ def ss_init():
                     ss_initial = False
         pygame.display.update()
 
+
+sge_clear()
+sge_print(string='Loading pause')
+pygame.display.update()
 
 def ss_pause():
     ss_pause = True
@@ -423,6 +431,10 @@ def ss_pause():
                 pygame.quit()
                 quit()
 
+
+sge_clear()
+sge_print(string='Loading game')
+pygame.display.update()
 
 def ss():
     while True:
@@ -493,6 +505,10 @@ def ss():
 
             pygame.display.update()
 
+
+sge_clear()
+sge_print(string='Starting game')
+pygame.display.update()
 
 try:
     ss()
