@@ -190,21 +190,24 @@ class Enemy:
     width = 20
     height = 40
     family = []
-    _difficulty = ("normal", "hard", "hell")
+    _difficulty = ("easy", "normal", "hard")
 
     def __init__(self, difficulty=None):
         self.spawn()
         if difficulty == None:
             difficulty = choice(Enemy._difficulty)
-        if difficulty == "normal":
+        if difficulty == "easy":
             self.speed = randint(1, 2)
             self.fire_cooldown = 1
-        elif difficulty == "hard":
+        elif difficulty == "normal":
             self.speed = randint(2, 4)
             self.fire_cooldown = 0.5
-        elif difficulty == "hell":
+        elif difficulty == "hard":
             self.speed = randint(4, 7)
             self.fire_cooldown = 0.3
+        elif difficulty == 'hell':
+            self.speed = randint(7, 10)
+            self.fire_cooldown = 0.2
         elif difficulty == "dummy":
             self.speed = 0
             self.fire_cooldown = 99999
@@ -219,16 +222,18 @@ class Enemy:
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
-        if self.difficulty == "normal":
-            color = green
+        if self.difficulty == "easy":
+            colour = green
+        elif self.difficulty == "normal":
+            colour = orange
         elif self.difficulty == "hard":
-            color = orange
-        elif self.difficulty == "hell":
-            color = red
+            colour = red
+        elif self.difficulty == 'hell':
+            colour = black
         elif self.difficulty == "dummy":
-            color = white
-        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, color)
-        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, color)
+            colour = white
+        sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, colour)
+        sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
     def move(self): # this now contains enemy ai
         self.y += self.speed if self.dir == "down" else -self.speed
@@ -248,12 +253,14 @@ class Enemy:
                 if time.time() - self.spawn_protect > 1:
                     self.despawn()
                     bullet.despawn()
-                    if self.difficulty == "normal":
+                    if self.difficulty == "easy":
                         Player.score += 10
-                    elif self.difficulty == "hard":
+                    elif self.difficulty == "normal":
                         Player.score += 15
-                    elif self.difficulty == "hell":
+                    elif self.difficulty == "hard":
                         Player.score += 20
+                    elif self.difficulty == 'hell':
+                        Player.score += 30
                 else:
                     sge_print(game_display,
                               "spawn protection",
@@ -264,7 +271,7 @@ class Enemy:
 
     def despawn(self):
             Enemy.family.remove(self)
-            
+
 def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
