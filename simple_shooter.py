@@ -1,12 +1,17 @@
+# Imports
 import pygame
 from data import *
 from sge import *
-pygame.init()
 import time
 import os
 from random import randint, choice
+# Init
+pygame.init()
+# Load data
 game_data = sge_load()
+# Load clock
 clock = pygame.time.Clock()
+# Load colours
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (204, 51, 0)
@@ -14,6 +19,7 @@ orange = (255, 153, 0)
 green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
+
 try:
     if int(game_data['display_height']) > 0:
         display_height = int(game_data['display_height'])
@@ -21,6 +27,7 @@ try:
         display_height = 800
 except:
     display_height = 800
+
 try:
     if int(game_data['display_width']) > 0:
         display_width = int(game_data['display_width'])
@@ -28,6 +35,7 @@ try:
         display_width = 800
 except:
     display_width = 800
+
 try:
     if int(game_data['ground_height']) > 0:
         ground_height = int(game_data['ground_height'])
@@ -35,6 +43,7 @@ try:
         ground_height = 200
 except:
     ground_height = 200
+
 game_display = pygame.display.set_mode([display_width, display_height])
 instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
 instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
