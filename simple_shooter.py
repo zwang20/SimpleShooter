@@ -54,6 +54,7 @@ instruction_image = pygame.transform.scale(instruction_image, (display_width, di
 rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
 explosion = pygame.image.load(os.path.join('assets', 'explosion.png'))
 shield_img = pygame.image.load(os.path.join('assets', 'shield.png'))
+shield_img = pygame.transform.scale(shield_img, (80, 80))
 
 laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
@@ -254,7 +255,7 @@ class Enemy:
     def get_hit(self): # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
-                if time.time() - self.spawn_protect > 99:
+                if time.time() - self.spawn_protect > 1:
                     self.despawn()
                     bullet.despawn()
                     if self.difficulty == "easy":
@@ -266,7 +267,7 @@ class Enemy:
                     elif self.difficulty == 'hell':
                         Player.score += 30
                 else:
-                    game_display.blit(shield_img, (self.x, self.y))
+                    game_display.blit(shield_img, (self.x - 30, self.y - 20))
                     bullet.despawn()
 
     def despawn(self):
