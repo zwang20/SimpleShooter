@@ -107,8 +107,8 @@ class Rocket:
     limit = 3
 
     def __init__(self):
-        self.x = display_width - 10
-        self.y = display_height - ground_height - 10
+        self.x = display_width
+        self.y = display_height - ground_height - 10 - Player.height
         Rocket.rockets.append(self)
 
     def move(self):
@@ -195,7 +195,7 @@ class Enemy:
     width = 20
     height = 40
     family = []
-    _difficulty = ("easy", "normal", "hard")
+    _difficulty = ("easy", "normal", "hard", 'hell')
 
     def __init__(self, difficulty=None):
         self.spawn()
@@ -223,7 +223,7 @@ class Enemy:
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = randint(Enemy.spawn_range, display_width - Enemy.width - Bullet.width)
+        self.x = randint(Enemy.spawn_range, display_width - Enemy.width - Bullet.length)
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
@@ -386,7 +386,7 @@ def ss():
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
-            
+
 try:
     ss()
 except KeyboardInterrupt:
