@@ -386,6 +386,7 @@ def ss():
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
+            
 try:
     ss()
 except KeyboardInterrupt:
