@@ -49,12 +49,13 @@ game_display = pygame.display.set_mode([display_width, display_height])
 pygame.display.set_caption('Simple Shooter')
 pygame.display.set_icon(pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png')))
 
-instruction_image = pygame.image.load(os.path.join('assets', 'instruction.png'))
-instruction_image = pygame.transform.scale(instruction_image, (display_width, display_height))
+instruction_img = pygame.image.load(os.path.join('assets', 'instruction.png'))
+instruction_img = pygame.transform.scale(instruction_img, (display_width, display_height))
 rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
-explosion = pygame.image.load(os.path.join('assets', 'explosion.png'))
+explosion_img = pygame.image.load(os.path.join('assets', 'explosion.png'))
 shield_img = pygame.image.load(os.path.join('assets', 'shield.png'))
 shield_img = pygame.transform.scale(shield_img, (80, 80))
+init_img = pygame.image.load(os.path.join('assets', 'init.png'))
 
 laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
@@ -95,7 +96,7 @@ class Bullet:
             sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
 
     def despawn(self):
-        game_display.blit(explosion, (self.x, self.y))
+        game_display.blit(explosion_img, (self.x, self.y))
         if self.harmful:
             Bullet.bad.remove(self)
         else:
@@ -120,7 +121,7 @@ class Rocket:
         game_display.blit(rocket_img, (self.x, self.y))
 
     def despawn(self):
-        game_display.blit(explosion, (self.x, self.y))
+        game_display.blit(explosion_img, (self.x, self.y))
         Rocket.rockets.remove(self)
 
 class Player:
@@ -284,8 +285,9 @@ def smart_spawn():
 
 def ss_init():
     sge_clear()
-    sge_print(game_display, 'This is a simple shooter')
+    #b sge_print(game_display, 'This is a simple shooter')
     # TODO: complete this description
+    game_display.blit(init_img, (0,0))
     ss_initial = True
     while ss_initial:
         for event in pygame.event.get():
@@ -303,7 +305,7 @@ def ss_pause():
     ss_pause = True
     while ss_pause:
         # sge_clear(game_display)
-        game_display.blit(instruction_image, (0,0))
+        game_display.blit(instruction_img, (0,0))
         sge_print(string='Paused', colour = white)
         sge_print(string = 'To unpause press keyboard "X"',y=30, colour = white)
         pygame.display.update()
