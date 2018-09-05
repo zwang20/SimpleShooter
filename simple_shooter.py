@@ -109,7 +109,7 @@ class Rocket:
 
     def __init__(self):
         self.x = display_width
-        self.y = display_height - ground_height + 1 - Player.height
+        self.y = display_height - ground_height - 9 - Player.height
         Rocket.rockets.append(self)
 
     def move(self):
