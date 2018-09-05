@@ -109,7 +109,7 @@ class Rocket:
 
     def __init__(self):
         self.x = display_width
-        self.y = display_height - ground_height - 9 - Player.height
+        self.y = display_height - ground_height + 1 - Player.height
         Rocket.rockets.append(self)
 
     def move(self):
@@ -174,17 +174,6 @@ class Player:
         # score above 0
         if Player.score < 0:
             Player.score = 0
-        # difficulty renew
-        if Player.score <= 50:
-            Enemy.limit = 2
-        elif Player.score <= 100:
-            Enemy.limit = 3
-        elif Player.score <= 135:
-            Enemy.limit = 4
-        elif Player.score <= 150:
-            Enemy.limit = 5
-        else:
-            Enemy.limit = 6
 
     def display(self):
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
@@ -197,11 +186,12 @@ class Enemy:
     height = 40
     family = []
     _difficulty = ("easy", "normal", "hard", 'hell')
+    available = Enemy._difficulty
 
     def __init__(self, difficulty=None):
         self.spawn()
         if difficulty == None:
-            difficulty = choice(Enemy._difficulty)
+            difficulty = choice(Enemy.available)
         if difficulty == "easy":
             self.speed = randint(1, 2)
             self.fire_cooldown = 1
@@ -276,6 +266,23 @@ class Enemy:
 
 
 def smart_spawn():
+    # difficulty renew
+    if Player.score <= 50:
+        Enemy.limit = 2
+        Enemy.available = Enemy._difficulty[:1]
+    elif Player.score <= 100:
+        Enemy.limit = 3
+        Enemy.available = Enemy._difficulty[:2]
+    elif Player.score <= 135:
+        Enemy.limit = 4
+        Enemy.available = Enemy._difficulty[:2]
+    elif Player.score <= 150:
+        Enemy.limit = 5
+        Enemy.available = Enemy._difficulty[:3]
+    else:
+        Enemy.limit = 6
+        Enemy.available = Enemy._difficulty
+
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
@@ -285,34 +292,9 @@ def smart_spawn():
 
 def ss_init():
     sge_clear()
-    sge_print(game_display, 'Simple Shooter')
-
-    player = Player()
-    for enemy in Enemy.family:
-        enemy.move()
-        enemy.get_hit()
-        enemy.fire()
-
-    for bullet in Bullet.good + Bullet.bad:
-        bullet.move()
-
-    player.renew()
-
-    smart_spawn()
-
-    for enemy in Enemy.family:
-        enemy.display()
-    for bullet in Bullet.good + Bullet.bad:
-        bullet.display()
-
-    player.display()
-
-    for rocket in Rocket.rockets:
-        rocket.display()
-        rocket.move()
-
-    pygame.display.update()
-
+    sge_print(game_display, 'A 2D shooting game consists of basic geometric shapes.')
+    # TODO: complete this description
+    game_display.blit(init_img, (0,0))
     ss_initial = True
     while ss_initial:
         for event in pygame.event.get():
@@ -354,6 +336,8 @@ def ss():
 
         ss_init()
         ss_run = True
+
+        player = Player()
 
         while ss_run:
             game_display.fill(grey)
