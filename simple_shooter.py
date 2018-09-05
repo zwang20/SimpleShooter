@@ -186,7 +186,8 @@ class Enemy:
     height = 40
     family = []
     _difficulty = ("easy", "normal", "hard", 'hell')
-    available = Enemy._difficulty
+    available = ("easy", "normal", "hard", 'hell')
+    # available = Enemy._difficulty
 
     def __init__(self, difficulty=None):
         self.spawn()
