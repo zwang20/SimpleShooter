@@ -309,6 +309,10 @@ def ss_init():
         pygame.display.update()
 
 
+def ss_settings:
+    pass
+
+    
 def ss_pause():
     ss_pause = True
     while ss_pause:
