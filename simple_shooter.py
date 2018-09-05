@@ -391,6 +391,7 @@ def ss():
 
             pygame.display.update()
 
+
 try:
     ss()
 except KeyboardInterrupt:
