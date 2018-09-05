@@ -2,8 +2,9 @@
 import pygame
 from data import *
 from sge import *
-import time
 import os
+os.chdir('Data')
+import time
 from random import randint, choice
 # Init
 pygame.init()
@@ -314,7 +315,7 @@ def ss_init():
         pygame.display.update()
 
 
-def ss_settings:
+def ss_settings():
     pass
 
 
