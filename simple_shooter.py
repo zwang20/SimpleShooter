@@ -297,6 +297,8 @@ def ss_init():
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
         pygame.display.update()
+
+
 def ss_pause():
     ss_pause = True
     while ss_pause:
@@ -318,6 +320,8 @@ def ss_pause():
                 pygame.display.quit()
                 pygame.quit()
                 quit()
+
+
 def ss():
     while True:
 
