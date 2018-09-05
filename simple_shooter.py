@@ -64,6 +64,7 @@ pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
 pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
 pygame.mixer.music.play(-1)
 
+
 class Bullet:
     width = 2
     length = 20
@@ -72,7 +73,8 @@ class Bullet:
     bad = []
 
     def __init__(self, x, y, harmful=True):
-        pygame.mixer.Sound.play(laser_sound_1) if randint(0,1) == 0 else pygame.mixer.Sound.play(laser_sound_2)
+        pygame.mixer.Sound.play(laser_sound_1) if randint(
+            0, 1) == 0 else pygame.mixer.Sound.play(laser_sound_2)
         self.x = x
         self.y = y
         self.harmful = harmful
@@ -102,6 +104,7 @@ class Bullet:
         else:
             Bullet.good.remove(self)
 
+
 class Rocket:
     rockets = []
     speed = 6
@@ -123,6 +126,7 @@ class Rocket:
     def despawn(self):
         game_display.blit(explosion_img, (self.x, self.y))
         Rocket.rockets.remove(self)
+
 
 class Player:
     width = 20
@@ -152,7 +156,7 @@ class Player:
                 Bullet(self.x + 20, self.y + 10, False)
                 self.cooldown += 20
 
-    def get_hit(self): # checks if an enemy gets hit and respond accordingly
+    def get_hit(self):  # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.bad:
             if self.x <= bullet.x <= self.x + Player.width:
                 if self.y <= bullet.y <= self.y + Player.height:
@@ -179,6 +183,7 @@ class Player:
         sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
         sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
+
 class Enemy:
     spawn_range = 500
     limit = 2
@@ -191,7 +196,7 @@ class Enemy:
 
     def __init__(self, difficulty=None):
         self.spawn()
-        if difficulty == None:
+        if difficulty is None:
             difficulty = choice(Enemy.available)
         if difficulty == "easy":
             self.speed = randint(1, 2)
@@ -232,7 +237,7 @@ class Enemy:
         sge_rect(game_display, self.x, self.y, Enemy.width, Enemy.height, colour)
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
-    def move(self): # this now contains enemy ai
+    def move(self):  # this now contains enemy ai
         self.y += self.speed if self.dir == "down" else -self.speed
         if self.y < self.speed:
             self.dir = "down"
@@ -244,7 +249,7 @@ class Enemy:
             self.fire_timer = time.time()
             Bullet(self.x - 5, self.y + 7, True)
 
-    def get_hit(self): # checks if an enemy gets hit and respond accordingly
+    def get_hit(self):  # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.good:
             if self.x <= bullet.x <= self.x + Enemy.width and self.y <= bullet.y <= self.y + Enemy.height:
                 if time.time() - self.spawn_protect > 1:
@@ -263,7 +268,7 @@ class Enemy:
                     bullet.despawn()
 
     def despawn(self):
-            Enemy.family.remove(self)
+        Enemy.family.remove(self)
 
 
 def smart_spawn():
@@ -287,7 +292,7 @@ def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
-        if randint(0,120) == 0:
+        if randint(0, 120) == 0:
             Rocket()
 
 
@@ -295,7 +300,7 @@ def ss_init():
     sge_clear()
     sge_print(game_display, 'A 2D shooting game consists of basic geometric shapes.')
     # TODO: complete this description
-    game_display.blit(init_img, (0,0))
+    game_display.blit(init_img, (0, 0))
     ss_initial = True
     while ss_initial:
         for event in pygame.event.get():
@@ -312,14 +317,14 @@ def ss_init():
 def ss_settings:
     pass
 
-    
+
 def ss_pause():
     ss_pause = True
     while ss_pause:
         # sge_clear(game_display)
-        game_display.blit(instruction_img, (0,0))
-        sge_print(string='Paused', colour = white)
-        sge_print(string = 'To unpause press keyboard "X"',y=30, colour = white)
+        game_display.blit(instruction_img, (0, 0))
+        sge_print(string='Paused', colour=white)
+        sge_print(string='To unpause press keyboard "X"', y=30, colour=white)
         pygame.display.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_x]:
@@ -348,7 +353,8 @@ def ss():
             game_display.fill(grey)
             clock.tick(60)
 
-            sge_rect(game_display, 0, display_height - ground_height, display_width, ground_height, black)  # Ground
+            sge_rect(game_display, 0, display_height - ground_height,
+                     display_width, ground_height, black)  # Ground
 
             for event in pygame.event.get():  # Input
                 if event.type == pygame.QUIT:
@@ -404,7 +410,6 @@ def ss():
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
-
 
 try:
     ss()
