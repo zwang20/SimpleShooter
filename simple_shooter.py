@@ -285,9 +285,34 @@ def smart_spawn():
 
 def ss_init():
     sge_clear()
-    #b sge_print(game_display, 'This is a simple shooter')
-    # TODO: complete this description
-    game_display.blit(init_img, (0,0))
+    sge_print(game_display, 'Simple Shooter')
+
+    player = Player()
+    for enemy in Enemy.family:
+        enemy.move()
+        enemy.get_hit()
+        enemy.fire()
+
+    for bullet in Bullet.good + Bullet.bad:
+        bullet.move()
+
+    player.renew()
+
+    smart_spawn()
+
+    for enemy in Enemy.family:
+        enemy.display()
+    for bullet in Bullet.good + Bullet.bad:
+        bullet.display()
+
+    player.display()
+
+    for rocket in Rocket.rockets:
+        rocket.display()
+        rocket.move()
+
+    pygame.display.update()
+
     ss_initial = True
     while ss_initial:
         for event in pygame.event.get():
@@ -329,8 +354,6 @@ def ss():
 
         ss_init()
         ss_run = True
-
-        player = Player()
 
         while ss_run:
             game_display.fill(grey)
