@@ -229,7 +229,7 @@ class Enemy:
             self.fire_cooldown = 99999
         self.difficulty = difficulty
         self.dir = 'up'
-        self.dir_timer = 3
+        self.movement = 50
         self.fire_timer = time.time()
         self.spawn_protect = time.time()
         Enemy.family.append(self)
@@ -255,7 +255,7 @@ class Enemy:
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
     def chdir(self):
-        self.dir_timer = randint(30, 120)
+        self.movement = randint(50, 120)
         self.dir = choice(("left", "right", "up", "down"))
 
     def move(self):  # this now contains enemy ai
@@ -279,8 +279,11 @@ class Enemy:
         elif self.y > display_height - ground_height - Enemy.height:
             self.y = display_height - ground_height - Enemy.height
             self.chdir()
-        self.dir_timer -= 1
-        if self.dir_timer <= 0:
+        if self.dir in ("up", "down"):
+            self.movement -= self.speedy
+        elif self.dir in ("left", "right"):
+            self.movement -= self.speedx
+        if self.movement <= 0:
             self.chdir()
 
     def fire(self):
