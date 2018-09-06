@@ -419,7 +419,8 @@ def ss():
             sge_rect(
             game_display, display_width-100, display_height-10, 100, 10, white)
             sge_rect(
-            game_display, display_width-100, display_height-10, player.cooldown, 10, red)
+            game_display, display_width-100,
+            display_height-10, player.cooldown, 10, red)
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
