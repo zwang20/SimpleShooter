@@ -26,7 +26,7 @@ try:
         display_height = int(game_data['display_height'])
     else:
         display_height = 800
-except SystemExit, KeyboardInterrupt:
+except (SystemExit, KeyboardInterrupt):
     display_height = 800
 except:
     display_height = 800
@@ -36,7 +36,7 @@ try:
         display_width = int(game_data['display_width'])
     else:
         display_width = 800
-except SystemExit, KeyboardInterrupt:
+except (SystemExit, KeyboardInterrupt):
     display_width = 800
 except:
     display_width = 800
@@ -46,7 +46,7 @@ try:
         ground_height = int(game_data['ground_height'])
     else:
         ground_height = 200
-except SystemExit, KeyboardInterrupt:
+except (SystemExit, KeyboardInterrupt):
     ground_height = 200
 except:
     ground_height = 200
