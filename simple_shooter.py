@@ -48,18 +48,22 @@ except:
 game_display = pygame.display.set_mode([display_width, display_height])
 
 pygame.display.set_caption('Simple Shooter')
-pygame.display.set_icon(pygame.image.load(os.path.join('assets', '32x32_simple_shooter.png')))
+pygame.display.set_icon(pygame.image.load(
+os.path.join('assets', '32x32_simple_shooter.png')))
 
 instruction_img = pygame.image.load(os.path.join('assets', 'instruction.png'))
-instruction_img = pygame.transform.scale(instruction_img, (display_width, display_height))
+instruction_img = pygame.transform.scale(
+instruction_img, (display_width, display_height))
 rocket_img = pygame.image.load(os.path.join('assets', 'rocket_image.png'))
 explosion_img = pygame.image.load(os.path.join('assets', 'explosion.png'))
 shield_img = pygame.image.load(os.path.join('assets', 'shield.png'))
 shield_img = pygame.transform.scale(shield_img, (80, 80))
 init_img = pygame.image.load(os.path.join('assets', 'init.png'))
 
-laser_sound_1 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
-laser_sound_2 = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
+laser_sound_1 = pygame.mixer.Sound(
+os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
+laser_sound_2 = pygame.mixer.Sound(
+os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
 pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
 pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
 pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
@@ -94,9 +98,11 @@ class Bullet:
 
     def display(self):
         if self.harmful:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, red)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, red)
         else:
-            sge_rect(game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
+            sge_rect(
+            game_display, self.x, self.y, Bullet.length, Bullet.width, blue)
 
     def despawn(self):
         game_display.blit(explosion_img, (self.x, self.y))
@@ -181,8 +187,10 @@ class Player:
             Player.score = 0
 
     def display(self):
-        sge_rect(game_display, self.x, self.y, Player.width, Player.height, white)
-        sge_rect(game_display, self.x + Player.width, self.y + 10, 5, 5, white)
+        sge_rect(
+        game_display, self.x, self.y, Player.width, Player.height, white)
+        sge_rect(
+        game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
 
 class Enemy:
@@ -221,7 +229,8 @@ class Enemy:
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = randint(Enemy.spawn_range, display_width - Enemy.width - Bullet.length)
+        self.x = randint(
+        Enemy.spawn_range, display_width - Enemy.width - Bullet.length)
         self.y = randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
@@ -299,7 +308,8 @@ def smart_spawn():
 
 def ss_init():
     sge_clear()
-    sge_print(game_display, 'A 2D shooting game consists of basic geometric shapes.')
+    sge_print(
+    game_display, 'A 2D shooting game consists of basic geometric shapes.')
     # TODO: complete this description
     game_display.blit(init_img, (0, 0))
     ss_initial = True
@@ -406,8 +416,10 @@ def ss():
                 rocket.display()
                 rocket.move()
 
-            sge_rect(game_display, display_width-100, display_height-10, 100, 10, white)
-            sge_rect(game_display, display_width-100, display_height-10, player.cooldown, 10, red)
+            sge_rect(
+            game_display, display_width-100, display_height-10, 100, 10, white)
+            sge_rect(
+            game_display, display_width-100, display_height-10, player.cooldown, 10, red)
             sge_print(game_display, Player.score, colour=white)
 
             pygame.display.update()
