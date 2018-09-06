@@ -26,11 +26,6 @@ try:
         display_height = int(game_data['display_height'])
     else:
         display_height = 800
-<<<<<<< HEAD
-=======
-except (SystemExit, KeyboardInterrupt):
-    display_height = 800
->>>>>>> 48a1853cb73e6754e91672bd8f451835d21905eb
 except:
     display_height = 800
 
@@ -39,11 +34,6 @@ try:
         display_width = int(game_data['display_width'])
     else:
         display_width = 800
-<<<<<<< HEAD
-=======
-except (SystemExit, KeyboardInterrupt):
-    display_width = 800
->>>>>>> 48a1853cb73e6754e91672bd8f451835d21905eb
 except:
     display_width = 800
 
@@ -52,11 +42,6 @@ try:
         ground_height = int(game_data['ground_height'])
     else:
         ground_height = 200
-<<<<<<< HEAD
-=======
-except (SystemExit, KeyboardInterrupt):
-    ground_height = 200
->>>>>>> 48a1853cb73e6754e91672bd8f451835d21905eb
 except:
     ground_height = 200
 
