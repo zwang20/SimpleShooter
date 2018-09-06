@@ -26,7 +26,7 @@ try:
         display_height = int(game_data['display_height'])
     else:
         display_height = 800
-except:
+except(KeyError):
     display_height = 800
 
 try:
@@ -34,7 +34,7 @@ try:
         display_width = int(game_data['display_width'])
     else:
         display_width = 800
-except:
+except(KeyError):
     display_width = 800
 
 try:
@@ -42,7 +42,7 @@ try:
         ground_height = int(game_data['ground_height'])
     else:
         ground_height = 200
-except:
+except(KeyError):
     ground_height = 200
 
 game_display = pygame.display.set_mode([display_width, display_height])
@@ -262,26 +262,26 @@ class Enemy:
         elif self.dir == "up":
             self.y -= self.speedy
         elif self.dir == "down":
-            self.y -= self.speedy
+            self.y += self.speedy
         if self.x > display_width - Enemy.width:
             self.x = display_width - Enemy.width
-            self.dir_timer = randint(30,120)
+            self.dir_timer = randint(30, 120)
             self.dir = choice(("left", "right", "up", "down"))
         elif self.x < 500:
             self.x = 500
-            self.dir_timer = randint(30,120)
+            self.dir_timer = randint(30, 120)
             self.dir = choice(("left", "right", "up", "down"))
         if self.y < 0:
             self.y = 0
-            self.dir_timer = randint(30,120)
+            self.dir_timer = randint(30, 120)
             self.dir = choice(("left", "right", "up", "down"))
         elif self.y > display_height - ground_height - Enemy.height:
             self.y = display_height - ground_height - Enemy.height
-            self.dir_timer = randint(30,120)
+            self.dir_timer = randint(30, 120)
             self.dir = choice(("left", "right", "up", "down"))
         self.dir_timer -= 1
         if self.dir_timer <= 0:
-            self.dir_timer = randint(30,120)
+            self.dir_timer = randint(30, 120)
             self.dir = choice(("left", "right", "up", "down"))
 
     def fire(self):
@@ -328,7 +328,7 @@ def smart_spawn():
         Enemy.available = Enemy._difficulty[:3]
     else:
         Enemy.limit = 6
-        Enemy.available = Enemy._difficulty
+        Enemy.available = Enemy._difficulty[1:]
 
     while len(Enemy.family) < Enemy.limit:
         Enemy()
