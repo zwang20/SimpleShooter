@@ -215,22 +215,27 @@ class Enemy:
         if difficulty is None:
             difficulty = choice(Enemy.available)
         if difficulty == "easy":
-            self.speed = randint(1, 2)
+            self.speedx = 1
+            self.speedy = randint(1, 2)
             self.fire_cooldown = 1
         elif difficulty == "normal":
-            self.speed = randint(2, 4)
+            self.speedx = randint(2, 3)
+            self.speedy = randint(2, 4)
             self.fire_cooldown = 0.5
         elif difficulty == "hard":
-            self.speed = randint(4, 7)
+            self.speedx = randint(3, 4)
+            self.speedy = randint(4, 7)
             self.fire_cooldown = 0.3
         elif difficulty == 'hell':
-            self.speed = randint(7, 10)
+            self.speedx = randint(4, 5)
+            self.speedy = randint(7, 10)
             self.fire_cooldown = 0.2
         elif difficulty == "dummy":
             self.speed = 0
             self.fire_cooldown = 99999
         self.difficulty = difficulty
-        self.dir = "up"
+        self.dir = 'up'
+        self.dir_timer = 3
         self.fire_timer = time.time()
         self.spawn_protect = time.time()
         Enemy.family.append(self)
@@ -256,12 +261,34 @@ class Enemy:
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
     def move(self):  # this now contains enemy ai
-        self.y += self.speed if self.dir == "down" else -self.speed
-        if self.y < self.speed:
-            self.dir = "down"
-        elif (self.y >
-              display_height - ground_height - Enemy.height - self.speed):
-            self.dir = "up"
+        if self.dir == "left":
+            self.x -= self.speedx
+        elif self.dir == "right":
+            self.x += self.speedx
+        elif self.dir == "up":
+            self.y -= self.speedy
+        elif self.dir == "down":
+            self.y -= self.speedy
+        if self.x > display_width - Enemy.width:
+            self.x = display_width - Enemy.width
+            self.dir_timer = randint(30,120)
+            self.dir = choice(("left", "right", "up", "down"))
+        elif self.x < 500:
+            self.x = 500
+            self.dir_timer = randint(30,120)
+            self.dir = choice(("left", "right", "up", "down"))
+        if self.y < 0:
+            self.y = 0
+            self.dir_timer = randint(30,120)
+            self.dir = choice(("left", "right", "up", "down"))
+        elif self.y > display_height - ground_height - Enemy.height:
+            self.y = display_height - ground_height - Enemy.height
+            self.dir_timer = randint(30,120)
+            self.dir = choice(("left", "right", "up", "down"))
+        self.dir_timer -= 1
+        if self.dir_timer <= 0:
+            self.dir_timer = randint(30,120)
+            self.dir = choice(("left", "right", "up", "down"))
 
     def fire(self):
         if time.time() - self.fire_timer >= self.fire_cooldown:
