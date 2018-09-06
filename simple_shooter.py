@@ -254,6 +254,10 @@ class Enemy:
             game_display, self.x, self.y, Enemy.width, Enemy.height, colour)
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
+    def chdir(self):
+        self.dir_timer = randint(30, 120)
+        self.dir = choice(("left", "right", "up", "down"))
+
     def move(self):  # this now contains enemy ai
         if self.dir == "left":
             self.x -= self.speedx
@@ -265,24 +269,19 @@ class Enemy:
             self.y += self.speedy
         if self.x > display_width - Enemy.width:
             self.x = display_width - Enemy.width
-            self.dir_timer = randint(30, 120)
-            self.dir = choice(("left", "right", "up", "down"))
+            self.chdir()
         elif self.x < 500:
             self.x = 500
-            self.dir_timer = randint(30, 120)
-            self.dir = choice(("left", "right", "up", "down"))
+            self.chdir()
         if self.y < 0:
             self.y = 0
-            self.dir_timer = randint(30, 120)
-            self.dir = choice(("left", "right", "up", "down"))
+            self.chdir()
         elif self.y > display_height - ground_height - Enemy.height:
             self.y = display_height - ground_height - Enemy.height
-            self.dir_timer = randint(30, 120)
-            self.dir = choice(("left", "right", "up", "down"))
+            self.chdir()
         self.dir_timer -= 1
         if self.dir_timer <= 0:
-            self.dir_timer = randint(30, 120)
-            self.dir = choice(("left", "right", "up", "down"))
+            self.chdir()
 
     def fire(self):
         if time.time() - self.fire_timer >= self.fire_cooldown:
