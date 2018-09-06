@@ -30,8 +30,7 @@ def sge_clear(display=game_display, colour=(255, 255, 255)):
 
 def sge_line(
     display=game_display,
-    colour=(0, 0, 0), point_1=(0, 0), point_2=(10, 10), width=(10)
-):
+    colour=(0, 0, 0), point_1=(0, 0), point_2=(10, 10), width=(10)):
     pygame.draw.line(display, colour, point_1, point_2, width)
 
 
@@ -45,7 +44,6 @@ def sge_load():
         for t in z:
             if t:
                 e.append(t.split(' = '))
-        print(e)
         return dict(e)
     except FileNotFoundError:
         x = open('settings.dat', 'w')
@@ -53,5 +51,33 @@ def sge_load():
         return None
 
 
-def sge_write():
-    pass
+def sge_write(var, value):
+    var = str(var)
+    value = str(value)
+    try:
+        x = open('settings.dat', 'r')
+        x.close
+    except FileNotFoundError:
+        x = open('settings.dat', 'w')
+        x.close()
+    x = open('settings.dat', 'r')
+    y = x.read()
+    x.close()
+    z = y.split('\n')
+    e = []
+    for t in z:
+        if t:
+            e.append(t.split(' = '))
+    g = dict(e)
+    try:
+        g[var]
+    except KeyError:
+        x = open('settings.dat', 'a')
+        x.write(''.join([var, ' = ', value]))
+    else:
+        x = open('settings.dat', 'r')
+        y = x.read()
+        x.close()
+        x = open('settings.dat', 'w')
+        x.write(y)
+        x.close()
