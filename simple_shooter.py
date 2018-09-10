@@ -368,6 +368,9 @@ def ss_init():
             enemy.display()
         for bullet in Bullet.good + Bullet.bad:
             bullet.display()
+        for bullet in Bullet.good + Bullet.bad:
+            bullet.move()
+
 
         pygame.display.update()
 
