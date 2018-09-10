@@ -397,10 +397,13 @@ def ss_init():
 
         game_display.fill(grey)
         sge_rect(x=600, y=250, width=200, height=100, colour=orange)
-        sge_rect(x=200, y=250, width=200, height=100, colour=green)
+        start_but = sge_rect(x=200, y=250, width=200, height=100, colour=green)
         sge_print(string='Start', x=200, y=250)
         sge_print(string='Help', x=600, y=250)
+
         mouse_pos = pygame.mouse.get_pos()
+        mouse_press = pygame.mouse.get_pressed()
+
         while 600<mouse_pos[0]<800 and 250<mouse_pos[1]<350:
             mouse_pos = pygame.mouse.get_pos()
             game_display.blit(init_img, (0, 0))
@@ -413,7 +416,7 @@ def ss_init():
                     elif event.key == pygame.K_SPACE:
                         ss_initial = False
             pygame.display.update()
-        if 200<mouse_pos[0]<400 and 250<mouse_pos[1]<350:
+        if start_but.collidepoint(mouse_pos) and mouse_press[0]:
             ss_initial=False
         sge_rect(game_display, 0, display_height - ground_height,
                  display_width, ground_height, black)

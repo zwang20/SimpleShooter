@@ -21,7 +21,7 @@ def sge_rect(
         width = 1
     if height <= 0:
         height = 1
-    pygame.draw.rect(display, colour, (x, y, width, height))
+    return pygame.draw.rect(display, colour, (x, y, width, height))
 
 
 def sge_clear(display=game_display, colour=(255, 255, 255)):
