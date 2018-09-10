@@ -356,6 +356,19 @@ def ss_init():
                     quit()
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
+
+        game_display.fill(grey)
+        sge_rect(game_display, 0, display_height - ground_height,
+                 display_width, ground_height, black)
+        smart_spawn()
+        for enemy in Enemy.family:
+            enemy.move()
+            enemy.get_hit()
+            enemy.fire()
+            enemy.display()
+        for bullet in Bullet.good + Bullet.bad:
+            bullet.display()
+
         pygame.display.update()
 
 
