@@ -140,8 +140,8 @@ class Player:
     width = 20
     height = 40
     score = 0
-    speedx = randint(4, 5)
-    speedy = randint(7, 10)
+    speedx = 4
+    speedy = 4
 
     def __init__(self):
         self.x = 0
@@ -173,17 +173,17 @@ class Player:
             self.y -= self.speedy
         elif self.dir == "down":
             self.y += self.speedy
-        if self.x > display_width - Enemy.width:
-            self.x = display_width - Enemy.width
+        if self.x < 0:
+            self.x = 0
             self.chdir()
-        elif self.x < 500:
-            self.x = 500
+        elif self.x > 300:
+            self.x = 300
             self.chdir()
         if self.y < 0:
             self.y = 0
             self.chdir()
-        elif self.y > display_height - ground_height - Enemy.height:
-            self.y = display_height - ground_height - Enemy.height
+        elif self.y > display_height - ground_height - Player.height:
+            self.y = display_height - ground_height - Player.height
             self.chdir()
         if self.dir in ("up", "down"):
             self.movement -= self.speedy
