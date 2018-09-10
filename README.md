@@ -1,4 +1,7 @@
-# project_ss
-Simple Shooter
-# This project is created by Michael Wang, a student from Knox Grammar School.
-# With help from Edward Ji.
+# Simple Shooter
+
+***
+
+## Credits
+* This project is initially created by Michael Wang.
+* Edward Ji, from QuarkGame, helped with programming of this project.
