@@ -140,6 +140,8 @@ class Player:
     width = 20
     height = 40
     score = 0
+    speedx = randint(4, 5)
+    speedy = randint(7, 10)
 
     def __init__(self):
         self.x = 0
@@ -157,6 +159,38 @@ class Player:
             self.y = 0
         elif self.y > display_height - ground_height - Player.height:
             self.y = display_height - ground_height - Player.height
+
+    def chdir(self):
+        self.movement = randint(50, 120)
+        self.dir = choice(("left", "right", "up", "down"))
+
+    def aimove(self):  # this now contains enemy ai
+        if self.dir == "left":
+            self.x -= self.speedx
+        elif self.dir == "right":
+            self.x += self.speedx
+        elif self.dir == "up":
+            self.y -= self.speedy
+        elif self.dir == "down":
+            self.y += self.speedy
+        if self.x > display_width - Enemy.width:
+            self.x = display_width - Enemy.width
+            self.chdir()
+        elif self.x < 500:
+            self.x = 500
+            self.chdir()
+        if self.y < 0:
+            self.y = 0
+            self.chdir()
+        elif self.y > display_height - ground_height - Enemy.height:
+            self.y = display_height - ground_height - Enemy.height
+            self.chdir()
+        if self.dir in ("up", "down"):
+            self.movement -= self.speedy
+        elif self.dir in ("left", "right"):
+            self.movement -= self.speedx
+        if self.movement <= 0:
+            self.chdir()
 
     def fire(self):
         if self.cooldown % 5 == 0:
@@ -340,6 +374,7 @@ def smart_spawn():
 
 
 def ss_init():
+    global player
     sge_clear()
     sge_print(
         game_display,
@@ -347,6 +382,8 @@ def ss_init():
     # TODO: complete this description
     game_display.blit(init_img, (0, 0))
     ss_initial = True
+    player = Player()
+    player.chdir()
     while ss_initial:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -370,6 +407,8 @@ def ss_init():
             bullet.display()
         for bullet in Bullet.good + Bullet.bad:
             bullet.move()
+        player.display()
+        player.aimove()
 
 
         pygame.display.update()
@@ -408,7 +447,7 @@ def ss():
         ss_init()
         ss_run = True
 
-        player = Player()
+        # player = Player()
 
         while ss_run:
             game_display.fill(grey)
