@@ -21,6 +21,8 @@ green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
 
+music = False
+
 try:
     if int(game_data['display_height']) > 0:
         display_height = int(game_data['display_height'])
@@ -64,10 +66,12 @@ laser_sound_1 = pygame.mixer.Sound(
     os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(
     os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
-pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
-pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
-pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
-pygame.mixer.music.play(-1)
+
+if music:
+    pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
+    pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
+    pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
+    pygame.mixer.music.play(-1)
 
 
 class Bullet:
