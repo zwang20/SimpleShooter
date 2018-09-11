@@ -18,6 +18,7 @@ black = (0, 0, 0)
 red = (204, 51, 0)
 orange = (255, 153, 0)
 green = (51, 204, 51)
+light_green = (0, 128, 0)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
 light_blue = (0, 0, 128)
@@ -448,6 +449,10 @@ def ss_init():
                 y=30, colour=white)
         player.display()
         player.aimove()
+
+        if 200 < mouse_pos[0] < 400 and 250 < mouse_pos[1] < 350:
+            sge_rect(x=200, y=250, width=200, height=100, colour=light_green)
+            sge_print(string='Start', x=200, y=250)
 
         pygame.display.update()
         timer += 1
