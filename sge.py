@@ -1,7 +1,8 @@
 import pygame
 from data import *
 
-print('Simple Game Engine by Michael')
+if __name__ != "__main__":
+    print('Simple Game Engine by Michael imported!')
 
 
 def sge_print(
