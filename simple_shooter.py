@@ -20,6 +20,7 @@ orange = (255, 153, 0)
 green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
+light_blue = (0, 0, 128)
 
 music = False
 
