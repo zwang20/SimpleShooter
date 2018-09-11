@@ -20,6 +20,9 @@ orange = (255, 153, 0)
 green = (51, 204, 51)
 blue = (0, 102, 255)
 grey = (40, 40, 50)
+light_blue = (0, 0, 128)
+
+music = False
 
 try:
     if int(game_data['display_height']) > 0:
@@ -64,10 +67,12 @@ laser_sound_1 = pygame.mixer.Sound(
     os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
 laser_sound_2 = pygame.mixer.Sound(
     os.path.join('assets', 'sounds', 'sfx_laser2.ogg'))
-pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
-pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
-pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
-pygame.mixer.music.play(-1)
+
+if music:
+    pygame.mixer.music.load(os.path.join('assets', 'music', 'song_1.ogg'))
+    pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_2.ogg'))
+    pygame.mixer.music.queue(os.path.join('assets', 'music', 'song_3.ogg'))
+    pygame.mixer.music.play(-1)
 
 
 class Bullet:
@@ -404,7 +409,7 @@ def ss_init():
         mouse_pos = pygame.mouse.get_pos()
         mouse_press = pygame.mouse.get_pressed()
 
-        while 600<mouse_pos[0]<800 and 250<mouse_pos[1]<350:
+        while 600 < mouse_pos[0] < 800 and 250 < mouse_pos[1] < 350:
             mouse_pos = pygame.mouse.get_pos()
             game_display.blit(init_img, (0, 0))
             for event in pygame.event.get():
@@ -417,9 +422,12 @@ def ss_init():
                         ss_initial = False
             pygame.display.update()
         if start_but.collidepoint(mouse_pos) and mouse_press[0]:
-            ss_initial=False
-        sge_rect(game_display, 0, display_height - ground_height,
-                 display_width, ground_height, black)
+            ss_initial = False
+        sge_rect(
+            game_display,
+            0,
+            display_height - ground_height,
+            display_width, ground_height, black)
         smart_spawn()
         for enemy in Enemy.family:
             enemy.move()
@@ -431,11 +439,15 @@ def ss_init():
         for bullet in Bullet.good + Bullet.bad:
             bullet.move()
         if timer >= 20:
-            sge_print(string='A 2D shooting game consists of basic geometric shapes.', colour=white)
-            sge_print(string='Made by Michael with assistance form Edward', y=30, colour=white)
+            sge_print(
+                string='\
+                A 2D shooting game consists of basic geometric shapes.',
+                colour=white)
+            sge_print(
+                string='Made by Michael with assistance form Edward',
+                y=30, colour=white)
         player.display()
         player.aimove()
-
 
         pygame.display.update()
         timer += 1
