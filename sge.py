@@ -1,7 +1,8 @@
 import pygame
 from data import *
 
-print('Simple Game Engine by Michael')
+if __name__ != "__main__":
+    print('Simple Game Engine by Michael imported!')
 
 
 def sge_print(
@@ -21,7 +22,7 @@ def sge_rect(
         width = 1
     if height <= 0:
         height = 1
-    pygame.draw.rect(display, colour, (x, y, width, height))
+    return pygame.draw.rect(display, colour, (x, y, width, height))
 
 
 def sge_clear(display=game_display, colour=(255, 255, 255)):
