@@ -1,4 +1,4 @@
-active main menu
+active main menu - DONE. Kind of. Err.
 life system (default survival mode)
 high score board; settings for keys
 boss mode (oppose survival mode)
