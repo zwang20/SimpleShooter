@@ -200,14 +200,14 @@ class Player:
             self.chdir()
 
     def fire(self):
-        if self.cooldown % 5 == 0:
+        if self.cooldown % 10 == 0:
             if self.cooldown < 90:
-                if self.cooldown % 2 == 0:
-                    Bullet(self.x + 20, self.y + 5, False)
-                    self.cooldown += 20
-                else:
-                    Bullet(self.x + 20, self.y + 33, False)
-                    self.cooldown += 20
+
+                Bullet(self.x + 20, self.y + 5, False)
+                self.cooldown += 20
+
+                Bullet(self.x + 20, self.y + 33, False)
+                self.cooldown += 20
 
     def get_hit(self):  # checks if an enemy gets hit and respond accordingly
         for bullet in Bullet.bad:
