@@ -63,6 +63,7 @@ explosion_img = pygame.image.load(os.path.join('assets', 'explosion.png'))
 shield_img = pygame.image.load(os.path.join('assets', 'shield.png'))
 shield_img = pygame.transform.scale(shield_img, (80, 80))
 init_img = pygame.image.load(os.path.join('assets', 'init.png'))
+player_img = pygame.image.load(os.path.join('assets', 'robot_ss.png'))
 
 laser_sound_1 = pygame.mixer.Sound(
     os.path.join('assets', 'sounds', 'sfx_laser1.ogg'))
@@ -228,10 +229,11 @@ class Player:
             Player.score = 0
 
     def display(self):
-        sge_rect(
-            game_display, self.x, self.y, Player.width, Player.height, white)
-        sge_rect(
-            game_display, self.x + Player.width, self.y + 10, 5, 5, white)
+        game_display.blit(player_img, (self.x, self.y))
+        # sge_rect(
+        #     game_display, self.x, self.y, Player.width, Player.height, white)
+        # sge_rect(
+        #     game_display, self.x + Player.width, self.y + 10, 5, 5, white)
 
 
 class Enemy:
