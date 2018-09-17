@@ -391,12 +391,7 @@ def smart_spawn():
 def ss_init():
     timer = 0
     global player
-    # sge_clear()
-    # sge_print(
-    #     game_display,
-    #     'A 2D shooting game consists of basic geometric shapes.')
     # TODO: complete this description
-    # game_display.blit(init_img, (0, 0))
     ss_initial = True
     player = Player()
     player.chdir()
