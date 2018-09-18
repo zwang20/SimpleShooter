@@ -4,7 +4,7 @@ from data import *
 from sge import *
 import os
 import time
-from random import randint, choice
+import random
 os.chdir('Data')
 # Init
 pygame.init()
@@ -85,7 +85,7 @@ class Bullet:
     bad = []
 
     def __init__(self, x, y, harmful=True):
-        pygame.mixer.Sound.play(laser_sound_1) if randint(
+        pygame.mixer.Sound.play(laser_sound_1) if random.randint(
             0, 1) == 0 else pygame.mixer.Sound.play(laser_sound_2)
         self.x = x
         self.y = y
@@ -169,8 +169,8 @@ class Player:
             self.y = display_height - ground_height - Player.height
 
     def chdir(self):
-        self.movement = randint(50, 120)
-        self.dir = choice(("left", "right", "up", "down"))
+        self.movement = random.randint(50, 120)
+        self.dir = random.choice(("left", "right", "up", "down"))
 
     def aimove(self):  # this now contains enemy ai
         if self.dir == "left":
@@ -254,22 +254,22 @@ class Enemy:
     def __init__(self, difficulty=None):
         self.spawn()
         if difficulty is None:
-            difficulty = choice(Enemy.available)
+            difficulty = random.choice(Enemy.available)
         if difficulty == "easy":
             self.speedx = 1
-            self.speedy = randint(1, 2)
+            self.speedy = random.randint(1, 2)
             self.fire_cooldown = 1
         elif difficulty == "normal":
-            self.speedx = randint(2, 3)
-            self.speedy = randint(2, 4)
+            self.speedx = random.randint(2, 3)
+            self.speedy = random.randint(2, 4)
             self.fire_cooldown = 0.5
         elif difficulty == "hard":
-            self.speedx = randint(3, 4)
-            self.speedy = randint(4, 7)
+            self.speedx = random.randint(3, 4)
+            self.speedy = random.randint(4, 7)
             self.fire_cooldown = 0.3
         elif difficulty == 'hell':
-            self.speedx = randint(4, 5)
-            self.speedy = randint(7, 10)
+            self.speedx = random.randint(4, 5)
+            self.speedy = random.randint(7, 10)
             self.fire_cooldown = 0.2
         elif difficulty == "dummy":
             self.speed = 0
@@ -282,9 +282,9 @@ class Enemy:
         Enemy.family.append(self)
 
     def spawn(self):
-        self.x = randint(
+        self.x = random.randint(
             Enemy.spawn_range, display_width - Enemy.width - Bullet.length)
-        self.y = randint(0, display_height - ground_height - Enemy.height)
+        self.y = random.randint(0, display_height - ground_height - Enemy.height)
 
     def display(self):
         if self.difficulty == "easy":
@@ -302,8 +302,8 @@ class Enemy:
         sge_rect(game_display, self.x - 5, self.y + 10, 5, 5, colour)
 
     def chdir(self):
-        self.movement = randint(50, 120)
-        self.dir = choice(("left", "right", "up", "down"))
+        self.movement = random.randint(50, 120)
+        self.dir = random.choice(("left", "right", "up", "down"))
 
     def move(self):  # this now contains enemy ai
         if self.dir == "left":
@@ -385,7 +385,7 @@ def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
-        if randint(0, 120) == 0:
+        if random.randint(0, 120) == 0:
             Rocket()
 
 
