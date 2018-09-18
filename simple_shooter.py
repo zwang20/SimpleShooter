@@ -2,6 +2,7 @@
 import pygame
 from data import *
 from sge import *
+import sys
 import os
 import time
 import random
@@ -402,7 +403,7 @@ def ss_init():
                 if event.key == pygame.K_q:
                     pygame.display.quit()
                     pygame.quit()
-                    quit()
+                    sys.exit()
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
 
@@ -423,7 +424,7 @@ def ss_init():
                     if event.key == pygame.K_q:
                         pygame.display.quit()
                         pygame.quit()
-                        quit()
+                        sys.exit()
                     elif event.key == pygame.K_SPACE:
                         ss_initial = False
             pygame.display.update()
@@ -482,11 +483,11 @@ def ss_pause():
                 if event.key == pygame.K_q:
                     pygame.display.quit()
                     pygame.quit()
-                    quit()
+                    sys.exit()
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 pygame.quit()
-                quit()
+                sys.exit()
 
 
 def ss():
@@ -508,13 +509,13 @@ def ss():
                 if event.type == pygame.QUIT:
                     pygame.display.quit()
                     pygame.quit()
-                    quit()
+                    sys.exit()
             keys = pygame.key.get_pressed()
 
             if keys[pygame.K_q]:  # Quit
                 pygame.display.quit()
                 pygame.quit()
-                quit()
+                sys.exit()
             if keys[pygame.K_w]:  # Up
                 player.move(0, -6)
             if keys[pygame.K_d]:  # Right
@@ -569,4 +570,4 @@ try:
 except KeyboardInterrupt:
     pygame.display.quit()
     pygame.quit()
-    quit()
+    sys.exit()
