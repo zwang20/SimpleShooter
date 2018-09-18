@@ -154,6 +154,7 @@ class Player:
         self.x = 0
         self.y = 0
         self.cooldown = 0
+        self.health = 0
 
     def move(self, move_x, move_y):
         self.x += move_x
