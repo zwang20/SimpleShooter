@@ -446,8 +446,7 @@ def ss_init():
             bullet.move()
         if timer >= 20:
             sge_print(
-                string='\
-				A 2D shooting game consists of basic geometric shapes.',
+                string='A 2D shooting game consists of basic geometric shapes.',
                 colour=white)
             sge_print(
                 string='Made by Michael with assistance form Edward',
