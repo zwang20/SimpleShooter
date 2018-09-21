@@ -128,7 +128,10 @@ class Rocket:
 
     def __init__(self):
         self.x = display_width
-        self.y = display_height - ground_height + 1 - Player.height
+        if random.choice([True, False]):
+            self.y = display_height - ground_height + 1 - Player.height
+        else:
+            self.y = random.randint(0, display_height - ground_height + 1 - Player.height)
         Rocket.rockets.append(self)
 
     def move(self):
@@ -386,7 +389,7 @@ def smart_spawn():
     while len(Enemy.family) < Enemy.limit:
         Enemy()
     if len(Rocket.rockets) < Rocket.limit:
-        if random.randint(0, 120) == 0:
+        if random.randint(0, 60) == 0:
             Rocket()
 
 
