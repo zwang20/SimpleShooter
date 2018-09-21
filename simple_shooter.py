@@ -404,9 +404,7 @@ def ss_init():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    pygame.display.quit()
-                    pygame.quit()
-                    sys.exit()
+                    game_exit()
                 elif event.key == pygame.K_SPACE:
                     ss_initial = False
 
@@ -425,9 +423,7 @@ def ss_init():
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        pygame.display.quit()
-                        pygame.quit()
-                        sys.exit()
+                        game_exit()
                     elif event.key == pygame.K_SPACE:
                         ss_initial = False
             pygame.display.update()
@@ -482,15 +478,8 @@ def ss_pause():
         if keys[pygame.K_x]:
             ss_pause = False
         for event in pygame.event.get():  # Input
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    pygame.display.quit()
-                    pygame.quit()
-                    sys.exit()
-            if event.type == pygame.QUIT:
-                pygame.display.quit()
-                pygame.quit()
-                sys.exit()
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_q) or event.type == pygame.QUIT:
+                game_exit()
 
 
 def ss():
@@ -510,15 +499,11 @@ def ss():
 
             for event in pygame.event.get():  # Input
                 if event.type == pygame.QUIT:
-                    pygame.display.quit()
-                    pygame.quit()
-                    sys.exit()
+                    game_exit()
             keys = pygame.key.get_pressed()
 
             if keys[pygame.K_q]:  # Quit
-                pygame.display.quit()
-                pygame.quit()
-                sys.exit()
+                game_exit()
             if keys[pygame.K_w]:  # Up
                 player.move(0, -6)
             if keys[pygame.K_d]:  # Right
@@ -567,6 +552,9 @@ def ss():
 
             pygame.display.update()
 
+def game_exit():
+    pygame.quit()
+    sys.exit()
 
 try:
     ss()
