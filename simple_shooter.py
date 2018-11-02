@@ -158,7 +158,7 @@ class Player:
         self.x = 0
         self.y = 0
         self.cooldown = 0
-        self.health = 0
+        self.health = 100
 
     def move(self, move_x, move_y):
         self.x += move_x
@@ -220,11 +220,13 @@ class Player:
                 if self.y <= bullet.y <= self.y + Player.height:
                     bullet.despawn()
                     Player.score -= 10
+                    self.health -= 10
         for rocket in Rocket.rockets:
             if self.x <= rocket.x <= self.x + Player.width:
                 if self.y <= rocket.y <= self.y + Player.height:
                     rocket.despawn()
                     Player.score -= 50
+                    self.health -= 50
 
     def renew(self):
         # cooldown recover
@@ -236,6 +238,9 @@ class Player:
         # score above 0
         if Player.score < 0:
             Player.score = 0
+
+        if self.health <= 0:
+            self.remove()
 
     def display(self):
         game_display.blit(player_img, (self.x, self.y))
@@ -461,6 +466,11 @@ def ss_init():
         pygame.display.update()
         timer += 1
 
+def ss_end():
+    while True:
+        if pygame.event.peek(pygame.QUIT):
+            pygame.quit()
+            sys.exit()
 
 def ss_settings():
     pass
@@ -550,15 +560,21 @@ def ss():
                 display_height-10, player.cooldown, 10, red)
             sge_print(game_display, Player.score, colour=white)
 
+            sge_rect(game_display, display_width-200, display_height-10, 100, 10, white)
+            sge_rect(game_display, display_width-200, display_height-10, player.health, 10, blue)
+
             pygame.display.update()
 
 def game_exit():
     pygame.quit()
     sys.exit()
 
-try:
-    ss()
-except KeyboardInterrupt:
-    pygame.display.quit()
-    pygame.quit()
-    sys.exit()
+while True:
+    try:
+        ss()
+    except KeyboardInterrupt:
+        pygame.display.quit()
+        pygame.quit()
+        sys.exit()
+    except AttributeError:
+        continue
